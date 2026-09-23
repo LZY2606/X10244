@@ -1,0 +1,12 @@
+# buffer candidate: B-FAR (wrong capillary position; q range does not overlap sample)
+# q_unit: 1/angstrom ; i_unit: arbitrary_detector_counts ; sigma_unit: arbitrary_detector_counts
+q,I,sigma
+0.600,48.1,2.4
+0.650,46.0,2.3
+0.700,44.2,2.3
+0.750,42.7,2.2
+0.800,41.5,2.2
+0.850,40.6,2.2
+0.900,39.9,2.1
+0.950,39.4,2.1
+1.000,39.0,2.1

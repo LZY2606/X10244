@@ -1,0 +1,13 @@
+{
+  "sample_id": "SMP-LYZ-2026-0912-A",
+  "exposure": { "value": 2.5, "unit": "s", "raw": "2500 ms" },
+  "thickness": { "value": 1.52, "unit": "mm", "raw": "0.152 cm" },
+  "transmission": { "value": 0.318, "unit": "dimensionless", "raw": "T=0.318 +/- 0.004", "sigma": 0.004 },
+  "buffer_candidates": [
+    { "id": "B1", "file": "buffer_b1_qi.csv", "recorded": "2026-09-12", "note": "PBS batch 12" },
+    { "id": "B2", "file": "buffer_b2_qi.csv", "recorded": "2026-09-13", "note": "PBS batch 13, fresh" },
+    { "id": "B-FAR", "file": "buffer_far_qi.csv", "recorded": "2026-09-12", "note": "mis-positioned capillary" }
+  ],
+  "instrument_response": "instrument_response.json",
+  "mask_source": "mask/agmsk_2026_09_12.edf"
+}
