@@ -1,0 +1,7 @@
+{
+  "kind": "mask",
+  "source": "beamstop+edges+hot-pixels",
+  "masked_pixels": 412,
+  "generated_by": "masktool 3.1",
+  "run": "2026-09-18T22:14:03Z"
+}

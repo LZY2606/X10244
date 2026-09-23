@@ -1,0 +1,26 @@
+{
+  "kind": "instrument_response",
+  "instrument": "bench-saxs-1",
+  "detector": "pixel-array-172",
+  "wavelength_a": 1.5418,
+  "response": [
+    {
+      "q": 0.01,
+      "r": 0.998
+    },
+    {
+      "q": 0.1,
+      "r": 1.0
+    },
+    {
+      "q": 0.3,
+      "r": 1.002
+    },
+    {
+      "q": 0.5,
+      "r": 0.997
+    }
+  ],
+  "unit": "1/angstrom",
+  "basis": "AgBh calibration 2026-09-10"
+}
