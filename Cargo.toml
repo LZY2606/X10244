@@ -1,0 +1,21 @@
+[package]
+name = "saxs-station"
+version = "0.1.0"
+edition = "2021"
+description = "Scattering Curve Bench: SAXS normalization, buffer subtraction and multi-range model evidence"
+
+[[bin]]
+name = "saxs-station"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync"] }
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+tower-http = { version = "0.6", features = ["fs", "trace"] }
+sha2 = "0.10"
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
