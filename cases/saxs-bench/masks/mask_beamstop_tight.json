@@ -1,0 +1,12 @@
+{
+  "beamstop_q_nm^-1": 0.052,
+  "coordinate_basis": "q_nm^-1_from_beam_center",
+  "excluded_q_intervals_nm^-1": [
+    [
+      0.05,
+      0.061
+    ]
+  ],
+  "mask_id": "mask-beamstop-tight",
+  "source": "manual ring mask from beamline log"
+}

@@ -1,0 +1,7 @@
+{
+  "coordinate_basis": "unknown_scanner_basis",
+  "notes": "Legency paper table; cannot convert to current pixel basis",
+  "q_independent": null,
+  "response_id": "detector-response-legacy",
+  "sensitivity_uniform": "see paper scan 1998"
+}
