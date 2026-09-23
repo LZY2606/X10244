@@ -1,0 +1,23 @@
+{
+  "unit": "arb",
+  "coordinate_basis": "detector_pixel",
+  "description": "per-pixel flat-field response, arbitrary units; NOT convertible to absolute intensity",
+  "values": [
+    1.0,
+    1.002847,
+    1.005637,
+    1.008311,
+    1.010817,
+    1.013102,
+    1.01512,
+    1.016829,
+    1.018196,
+    1.019193,
+    1.019798,
+    1.02,
+    1.019794,
+    1.019186,
+    1.018186,
+    1.016816
+  ]
+}

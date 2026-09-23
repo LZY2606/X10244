@@ -1,0 +1,24 @@
+{
+  "source": "detector_edge+beamstop+flight_path",
+  "coordinate_basis": "detector_pixel",
+  "rects": [
+    [
+      0,
+      0,
+      8,
+      512
+    ],
+    [
+      504,
+      0,
+      512,
+      512
+    ],
+    [
+      240,
+      240,
+      272,
+      272
+    ]
+  ]
+}

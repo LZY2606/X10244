@@ -1,0 +1,64 @@
+{
+  "name": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "steps": [
+    {
+      "op": "import_baseline",
+      "note": "原始 q/I/误差、曝光、厚度、透射率、缓冲液候选、仪器响应、遮罩来源全部保留"
+    },
+    {
+      "op": "subtract",
+      "buffer": "v1",
+      "note": "同网格直接相减基线"
+    },
+    {
+      "op": "subtract",
+      "buffer": "v2",
+      "note": "q 网格错位 -> 仅重叠区插值；高 q 负强度保留"
+    },
+    {
+      "op": "subtract",
+      "buffer": "no_overlap",
+      "note": "无重叠区 -> 状态 undetermined，不生成假曲线"
+    },
+    {
+      "op": "revise_param",
+      "param": "background_scale",
+      "value": 1.05,
+      "uncertainty": 0.03,
+      "note": "参数修订：背景缩放及其不确定度进入误差"
+    },
+    {
+      "op": "revise_source",
+      "node": "buffer_raw:v2",
+      "field": "transmission",
+      "value": 0.3,
+      "note": "局部源改动：只重算 v2 分支，其余保持有效并说明理由"
+    },
+    {
+      "op": "switch_buffer",
+      "to": "v2",
+      "note": "缓冲液版本切换：未选分支保留"
+    },
+    {
+      "op": "fit_intervals",
+      "guinier": [
+        0.01,
+        0.06
+      ],
+      "porod": [
+        0.04,
+        0.5
+      ],
+      "note": "区间重叠 -> Guinier 与 Porod 不自动合并；多候选残差全部保留"
+    },
+    {
+      "op": "conflict",
+      "node": "review_state",
+      "users": [
+        "alice",
+        "bao"
+      ],
+      "note": "两名审阅者从同一版本作出互相冲突的决定"
+    }
+  ]
+}

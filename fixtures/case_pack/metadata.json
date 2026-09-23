@@ -1,0 +1,23 @@
+{
+  "sample_id": "lysozyme_5mgml_A1",
+  "exposure": {
+    "value": 1.0,
+    "unit": "s"
+  },
+  "thickness": {
+    "value": 0.15,
+    "unit": "cm"
+  },
+  "transmission": {
+    "value": 0.32,
+    "unit": "1",
+    "uncertainty": 0.01
+  },
+  "background_scale": {
+    "value": 1.0,
+    "unit": "1",
+    "uncertainty": 0.02
+  },
+  "instrument_response_file": "instrument_response.json",
+  "mask_file": "mask.json"
+}

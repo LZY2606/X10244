@@ -1,0 +1,35 @@
+{
+  "v1": {
+    "exposure": {
+      "value": 1.0,
+      "unit": "s"
+    },
+    "transmission": {
+      "value": 0.34,
+      "unit": "1",
+      "uncertainty": 0.01
+    }
+  },
+  "v2": {
+    "exposure": {
+      "value": 2.0,
+      "unit": "s"
+    },
+    "transmission": {
+      "value": 0.33,
+      "unit": "1",
+      "uncertainty": 0.01
+    }
+  },
+  "no_overlap": {
+    "exposure": {
+      "value": 1.0,
+      "unit": "s"
+    },
+    "transmission": {
+      "value": 0.34,
+      "unit": "1",
+      "uncertainty": 0.01
+    }
+  }
+}
