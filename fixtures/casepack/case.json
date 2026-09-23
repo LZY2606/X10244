@@ -1,0 +1,36 @@
+{
+  "case_id": "saxs-norm-bg-sub-evidence",
+  "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "narrative": "小角散射小组导入二维积分后的 I(q)、透射率、曝光和缓冲液记录，生成可审阅的归一化与背景扣除链。基线保留原始 q/I/误差、曝光、样品厚度、透射率、缓冲液候选、仪器响应和遮罩来源；随后每次只改动一个直接来源，检验影响是否被限制在正确范围。",
+  "sample_meta": {
+    "label": "lysozyme 4 mg/mL",
+    "exposure_s": 10.0, "exposure_raw": "10 s",
+    "thickness_cm": 0.15, "thickness_raw": "1.5 mm",
+    "transmission": 0.32, "transmission_raw": "0.32 (diode)",
+    "transmission_rel_unc": 0.005, "thickness_rel_unc": 0.01, "exposure_rel_unc": 0.001
+  },
+  "buffer_meta": {
+    "label": "buffer B-104",
+    "exposure_s": 10.0, "exposure_raw": "10 s",
+    "thickness_cm": 0.15, "thickness_raw": "1.5 mm",
+    "transmission": 0.34, "transmission_raw": "0.34 (diode)",
+    "transmission_rel_unc": 0.005, "thickness_rel_unc": 0.01, "exposure_rel_unc": 0.001
+  },
+  "provenance": [
+    {"kind": "instrument_response", "label": "Pilatus3 1M flat-field", "detail": "flat_field_2026-09-10.dat, 灵敏度矩阵 v3", "source": "beamline/BL-12U/calib"},
+    {"kind": "mask_source", "label": "beamstop+坏点遮罩", "detail": "mask_run1215.json, 手工增补坏点 3 处", "source": "run1215/mask"}
+  ],
+  "buffer_candidates": [
+    {"label": "buffer B-104 (初测)", "file": "raw_buffer_v1.csv", "version_note": "v1"},
+    {"label": "buffer B-104 (掉束后复测)", "file": "raw_buffer_v2.csv", "version_note": "v2"},
+    {"label": "buffer 异区间(无重叠)", "file": "raw_buffer_far.csv", "version_note": "far-range"},
+    {"label": "buffer (nm 坐标)", "file": "raw_buffer_nm.csv", "version_note": "nm-units"}
+  ],
+  "sample_file": "raw_sample.csv",
+  "story": [
+    {"step": "baseline", "note": "基线：全部原始材料保留，scale=1.00±0.01 扣除 v1 缓冲液"},
+    {"step": "revise_param", "note": "参数修订：scale 改为 0.98±0.02，生成多候选残差比较"},
+    {"step": "local_source_change", "note": "只影响局部依赖的源数据改动：切换缓冲液 v1->v2，样品归一化应保持有效"},
+    {"step": "conflicting_decisions", "note": "两位审阅者对区间候选给出互相冲突的人工决定，保留双方"}
+  ]
+}
