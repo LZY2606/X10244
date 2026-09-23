@@ -1,0 +1,124 @@
+{
+ "dataset_id": "buffer.far",
+ "kind": "raw_buffer_1d",
+ "q_unit": "1/angstrom",
+ "i_unit": "counts",
+ "points": [
+  {
+   "id": "far#0000",
+   "q": 0.5,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0001",
+   "q": 0.52,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0002",
+   "q": 0.54,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0003",
+   "q": 0.56,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0004",
+   "q": 0.58,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0005",
+   "q": 0.6,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0006",
+   "q": 0.62,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0007",
+   "q": 0.64,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0008",
+   "q": 0.66,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0009",
+   "q": 0.68,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0010",
+   "q": 0.7,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0011",
+   "q": 0.72,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0012",
+   "q": 0.74,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0013",
+   "q": 0.76,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0014",
+   "q": 0.78,
+   "i": 0.41,
+   "sigma": 0.004
+  },
+  {
+   "id": "far#0015",
+   "q": 0.8,
+   "i": 0.41,
+   "sigma": 0.004
+  }
+ ],
+ "meta": {
+  "exposure_time": {
+   "value": 1.0,
+   "unit": "s",
+   "sigma": 0.01
+  },
+  "sample_thickness": {
+   "value": 1.0,
+   "unit": "mm",
+   "sigma": 0.02
+  },
+  "transmission": {
+   "value": 0.33,
+   "unit": "dimensionless",
+   "sigma": 0.004
+  },
+  "buffer_version": "far-v1",
+  "instrument_response_ref": "instrument.inst1",
+  "mask_source": "mask_2026-09-12.json (detector gaps + beamstop)"
+ }
+}

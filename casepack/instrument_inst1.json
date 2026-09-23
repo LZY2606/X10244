@@ -1,0 +1,129 @@
+{
+ "dataset_id": "instrument.inst1",
+ "kind": "instrument_response",
+ "q_unit": "1/angstrom",
+ "response": [
+  {
+   "q": 0.01,
+   "sensitivity": 1.00001
+  },
+  {
+   "q": 0.02,
+   "sensitivity": 1.00002
+  },
+  {
+   "q": 0.03,
+   "sensitivity": 1.00003
+  },
+  {
+   "q": 0.04,
+   "sensitivity": 1.00004
+  },
+  {
+   "q": 0.05,
+   "sensitivity": 1.00005
+  },
+  {
+   "q": 0.06,
+   "sensitivity": 1.00006
+  },
+  {
+   "q": 0.07,
+   "sensitivity": 1.00007
+  },
+  {
+   "q": 0.08,
+   "sensitivity": 1.00008
+  },
+  {
+   "q": 0.09,
+   "sensitivity": 1.00009
+  },
+  {
+   "q": 0.1,
+   "sensitivity": 1.0001
+  },
+  {
+   "q": 0.11,
+   "sensitivity": 1.00011
+  },
+  {
+   "q": 0.12,
+   "sensitivity": 1.00012
+  },
+  {
+   "q": 0.13,
+   "sensitivity": 1.00013
+  },
+  {
+   "q": 0.14,
+   "sensitivity": 1.00014
+  },
+  {
+   "q": 0.15,
+   "sensitivity": 1.00015
+  },
+  {
+   "q": 0.16,
+   "sensitivity": 1.00016
+  },
+  {
+   "q": 0.17,
+   "sensitivity": 1.00017
+  },
+  {
+   "q": 0.18,
+   "sensitivity": 1.00018
+  },
+  {
+   "q": 0.19,
+   "sensitivity": 1.00019
+  },
+  {
+   "q": 0.2,
+   "sensitivity": 1.0002
+  },
+  {
+   "q": 0.21,
+   "sensitivity": 1.00021
+  },
+  {
+   "q": 0.22,
+   "sensitivity": 1.00022
+  },
+  {
+   "q": 0.23,
+   "sensitivity": 1.00023
+  },
+  {
+   "q": 0.24,
+   "sensitivity": 1.00024
+  },
+  {
+   "q": 0.25,
+   "sensitivity": 1.00025
+  },
+  {
+   "q": 0.26,
+   "sensitivity": 1.00026
+  },
+  {
+   "q": 0.27,
+   "sensitivity": 1.00027
+  },
+  {
+   "q": 0.28,
+   "sensitivity": 1.00028
+  },
+  {
+   "q": 0.29,
+   "sensitivity": 1.00029
+  },
+  {
+   "q": 0.3,
+   "sensitivity": 1.0003
+  }
+ ],
+ "mask_source": "mask_2026-09-12.json (detector gaps + beamstop)",
+ "note": "per-q detector sensitivity; mask provenance retained"
+}
