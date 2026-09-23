@@ -1,0 +1,10 @@
+{
+ "id": "mask-v3",
+ "source": "beamline-mask-repo",
+ "revision": "mask-v3-2026-09-01",
+ "excludes": [
+  "beamstop-shadow",
+  "detector-gap-rows",
+  "hot-pixel-list-91"
+ ]
+}

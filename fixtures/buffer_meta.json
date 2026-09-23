@@ -1,0 +1,18 @@
+{
+ "buffer_id": "buf-batch",
+ "exposure": {
+  "value": 10.0,
+  "unit": "s"
+ },
+ "thickness": {
+  "value": 0.15,
+  "unit": "cm"
+ },
+ "transmission": {
+  "value": 0.33,
+  "unit": "1",
+  "unc": 0.005
+ },
+ "instrument_response_ref": "instr-main",
+ "mask_source_ref": "mask-v3"
+}

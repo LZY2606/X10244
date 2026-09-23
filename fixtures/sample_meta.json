@@ -1,0 +1,22 @@
+{
+ "sample_id": "lys-A-042",
+ "exposure": {
+  "value": 10.0,
+  "unit": "s"
+ },
+ "thickness": {
+  "value": 0.15,
+  "unit": "cm"
+ },
+ "transmission": {
+  "value": 0.32,
+  "unit": "1",
+  "unc": 0.005
+ },
+ "concentration": {
+  "value": 4.2,
+  "unit": "mg/mL"
+ },
+ "instrument_response_ref": "instr-main",
+ "mask_source_ref": "mask-v3"
+}
