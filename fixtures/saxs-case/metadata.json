@@ -1,0 +1,66 @@
+{
+  "case_id": "saxs-bench-2026-09",
+  "coordinate_frame": {
+    "q": {"axis": "scattering_vector", "unit": "1/A", "direction": "increasing", "grid_origin": "azimuthally_integrated_2D_image"},
+    "intensity": {"quantity": "macroscopic_scattering_cross_section", "unit": "1/cm"}
+  },
+  "sample": {
+    "logical_curve_id": "sample",
+    "current_version": "sample/v1",
+    "source_file": "sample.csv",
+    "exposure": {"raw": "300 s", "value": 300.0, "unit": "s", "uncertainty": 0.5},
+    "thickness": {"raw": "1.50 mm", "value": 0.15, "unit": "cm", "uncertainty": 0.002, "conversion_note": "1.50 mm -> 0.150 cm"},
+    "transmission": {"raw": "0.820 @ 12.40 keV", "value": 0.82, "uncertainty": 0.004, "unit": "dimensionless"},
+    "instrument_response": {"raw": "detector_response_2026-08.tab#factor", "value": 0.972, "uncertainty": 0.003, "unit": "dimensionless"},
+    "mask_source": {"path": "masks/saxs_beamstop_ring.mask", "sha256": "fixture-mask-sha256-7f3a", "unchanged_pixels": 482113, "masked_pixels": 12944}
+  },
+  "buffers": [
+    {
+      "logical_curve_id": "buffer_b1",
+      "candidate_id": "buffer_candidate_b1",
+      "current_version": "buffer_b1/v1",
+      "label": "matched-grid buffer, recorded 2026-09-18 10:20",
+      "source_file": "buffer_b1.csv",
+      "exposure": {"raw": "180 s", "value": 180.0, "unit": "s", "uncertainty": 0.3},
+      "thickness": {"raw": "1.50 mm", "value": 0.15, "unit": "cm", "uncertainty": 0.002},
+      "transmission": {"raw": "0.910 @ 12.40 keV", "value": 0.91, "uncertainty": 0.003, "unit": "dimensionless"},
+      "instrument_response": {"raw": "detector_response_2026-08.tab#factor", "value": 0.972, "uncertainty": 0.003, "unit": "dimensionless"},
+      "mask_source": {"path": "masks/saxs_beamstop_ring.mask", "sha256": "fixture-mask-sha256-7f3a", "unchanged_pixels": 482113, "masked_pixels": 12944}
+    },
+    {
+      "logical_curve_id": "buffer_shifted",
+      "candidate_id": "buffer_candidate_shifted",
+      "current_version": "buffer_shifted/v1",
+      "label": "later buffer with q offset +0.003 1/A",
+      "source_file": "buffer_shifted.csv",
+      "exposure": {"raw": "180 s", "value": 180.0, "unit": "s", "uncertainty": 0.3},
+      "thickness": {"raw": "1.50 mm", "value": 0.15, "unit": "cm", "uncertainty": 0.002},
+      "transmission": {"raw": "0.905 @ 12.40 keV", "value": 0.905, "uncertainty": 0.003, "unit": "dimensionless"},
+      "instrument_response": {"raw": "detector_response_2026-08.tab#factor", "value": 0.972, "uncertainty": 0.003, "unit": "dimensionless"},
+      "mask_source": {"path": "masks/saxs_beamstop_ring.mask", "sha256": "fixture-mask-sha256-7f3a", "unchanged_pixels": 482113, "masked_pixels": 12944}
+    },
+    {
+      "logical_curve_id": "buffer_high_q",
+      "candidate_id": "buffer_candidate_high_q",
+      "current_version": "buffer_high_q/v1",
+      "label": "buffer measured on a high-q setup with no sample overlap",
+      "source_file": "buffer_high_q.csv",
+      "exposure": {"raw": "240 s", "value": 240.0, "unit": "s", "uncertainty": 0.4},
+      "thickness": {"raw": "1.50 mm", "value": 0.15, "unit": "cm", "uncertainty": 0.002},
+      "transmission": {"raw": "0.895 @ 12.40 keV", "value": 0.895, "uncertainty": 0.003, "unit": "dimensionless"},
+      "instrument_response": {"raw": "detector_response_2026-08.tab#factor", "value": 0.972, "uncertainty": 0.003, "unit": "dimensionless"},
+      "mask_source": {"path": "masks/high_q_beamstop.mask", "sha256": "fixture-mask-sha256-91bd", "unchanged_pixels": 401220, "masked_pixels": 9881}
+    }
+  ],
+  "accepted_buffer_candidate": "buffer_candidate_b1",
+  "scale_candidates": [
+    {"id": "scale_weighted_fit", "method": "nonnegative weighted least squares in overlap", "external_sigma": 0.0},
+    {"id": "scale_nominal_one", "method": "normalized sample and buffer cell, nominal scale 1", "external_sigma": 0.035}
+  ],
+  "interval_windows": [
+    {"id": "guinier_core", "kind": "guinier", "q_min": 0.05, "q_max": 0.13},
+    {"id": "guinier_extended", "kind": "guinier", "q_min": 0.05, "q_max": 0.22},
+    {"id": "porod_core", "kind": "porod", "q_min": 0.22, "q_max": 0.50},
+    {"id": "porod_early", "kind": "porod", "q_min": 0.20, "q_max": 0.50}
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "case_id": "saxs-bench-2026-09",
+  "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "narrative_stages": [
+    "import_and_verify_original_materials",
+    "parameter_revision",
+    "grid_misalignment",
+    "no_overlap",
+    "background_scale_uncertainty",
+    "negative_intensity",
+    "interval_overlap",
+    "buffer_version_switch",
+    "multi_candidate_residuals",
+    "local_source_patch",
+    "conflicting_human_decisions",
+    "final_review_and_history"
+  ],
+  "deterministic_actions": [
+    {"seq": 1, "action": "import_case", "must_record": ["raw_q", "raw_i", "raw_sigma", "exposure", "thickness", "transmission", "buffer_candidates", "instrument_response", "mask_source"]},
+    {"seq": 2, "action": "revise_parameter", "target": "sample.thickness", "raw": "1.40 mm", "canonical_value": 0.14, "unit": "cm", "uncertainty": 0.002},
+    {"seq": 3, "action": "select_buffer", "candidate": "buffer_candidate_shifted", "expected": "overlap_interpolation_only"},
+    {"seq": 4, "action": "select_buffer", "candidate": "buffer_candidate_high_q", "expected": "blocked_no_overlap"},
+    {"seq": 5, "action": "set_scale_uncertainty", "candidate": "scale_nominal_one", "sigma": 0.2},
+    {"seq": 6, "action": "patch_source", "logical_curve": "sample", "version": "sample/v2", "point_index": 7, "intensity": -0.0012, "reason": "diagnostic detector dip retained"},
+    {"seq": 7, "action": "activate_intervals", "guinier": "guinier_extended", "porod": "porod_early", "expected": "overlap_retained_not_stitched"},
+    {"seq": 8, "action": "select_buffer", "candidate": "buffer_candidate_b1", "decision": "accepted", "expected": "previous_buffer_branch_retained"},
+    {"seq": 9, "action": "compare_residual_candidates", "expected": "all_legal_candidates_retained"},
+    {"seq": 10, "action": "patch_source", "logical_curve": "sample", "version": "sample/v3", "q_above": 0.2, "delta_q": -0.005, "reason": "local high-q calibration correction"},
+    {"seq": 11, "action": "attempt_conflicting_decisions", "first": "accept scale_weighted_fit", "second": "reject scale_weighted_fit", "resolution": "refetch_current_version_then_reject"},
+    {"seq": 12, "action": "finish_review", "expected": "provenance_reachable_from_derived_points"}
+  ]
+}
