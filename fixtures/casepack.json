@@ -1,0 +1,23 @@
+{
+  "id": "saxs-bench-casepack",
+  "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "description": "小角散射小组导入二维积分后的 I(q)、透射率、曝光和缓冲液记录，生成可审阅的归一化与背景扣除链。",
+  "baseline": {
+    "sample_curve": "sample_a_qA.csv",
+    "metadata": "metadata.json",
+    "buffer": "buffer_v1",
+    "kept_raw": ["q/I/误差", "曝光", "样品厚度", "透射率", "缓冲液候选", "仪器响应", "遮罩来源"]
+  },
+  "replay": [
+    { "step": 1, "action": "import_baseline", "note": "导入原始记录，全部来源保留" },
+    { "step": 2, "action": "normalize", "note": "按曝光/厚度/透射率归一化，误差含归一化不确定度" },
+    { "step": 3, "action": "subtract", "params": { "buffer": "buffer_v1", "scale": 1.0, "scale_sigma": 0.02 }, "note": "q 网格错位 -> 仅在重叠范围插值相减" },
+    { "step": 4, "action": "try_subtract", "params": { "buffer": "buffer_no_overlap" }, "expect": "no_overlap", "note": "无重叠区 -> 拒绝相减并给出诊断" },
+    { "step": 5, "action": "fit_intervals", "params": { "guinier": [0.008, 0.045], "porod": [0.04, 0.12] }, "note": "Guinier 与 Porod 区间重叠 -> 保留为独立候选，不拼成单一模型" },
+    { "step": 6, "action": "revise_param", "params": { "scale_sigma": 0.05 }, "note": "参数修订：背景缩放不确定度加大 -> 仅误差传播链重算" },
+    { "step": 7, "action": "switch_buffer", "params": { "buffer": "buffer_v2" }, "note": "缓冲液版本切换 -> 只影响减背景及其下游" },
+    { "step": 8, "action": "conflicting_decision", "params": { "reviewers": ["liu", "wang"] }, "note": "两位审阅者对 Guinier 候选做冲突裁定 -> 冲突可解决，未选候选保留" },
+    { "step": 9, "action": "check_negative", "note": "高 q 区负强度保留并标记，不吞掉" },
+    { "step": 10, "action": "multi_candidate_residuals", "note": "多候选残差并列展示，保留全部合法候选" }
+  ]
+}

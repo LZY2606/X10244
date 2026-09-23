@@ -1,0 +1,11 @@
+{
+  "id": "pilatus3-2m-2026-09",
+  "kind": "detector_flat_field",
+  "energy_keV": 12.4,
+  "coefficients": [
+    { "q_min_A^-1": 0.0, "q_max_A^-1": 0.05, "response": 1.000 },
+    { "q_min_A^-1": 0.05, "q_max_A^-1": 0.15, "response": 0.998 },
+    { "q_min_A^-1": 0.15, "q_max_A^-1": 0.35, "response": 0.995 }
+  ],
+  "source": "glass-carbon standard, run 2026-09-08"
+}

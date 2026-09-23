@@ -1,0 +1,10 @@
+{
+  "id": "mask-2026-09-08",
+  "components": [
+    { "kind": "beamstop", "shape": "circle", "center_px": [512, 489], "radius_px": 22 },
+    { "kind": "bad_pixels", "count": 143, "list_file": "badpix_2026-09-08.txt" },
+    { "kind": "module_gaps", "detector": "pilatus3-2m" }
+  ],
+  "created_by": "beamline-auto-masking v3",
+  "reviewed_by": "operator:chen"
+}

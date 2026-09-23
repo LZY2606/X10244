@@ -1,0 +1,17 @@
+{
+  "sample": {
+    "name": "lysozyme-5mgml",
+    "exposure_time": { "value": 10.0, "unit": "s", "sigma": 0.01 },
+    "sample_thickness": { "value": 1.5, "unit": "mm", "sigma": 0.02 },
+    "transmission": { "value": 0.31, "unit": "1", "sigma": 0.004 },
+    "concentration": { "value": 5.0, "unit": "mg/ml" }
+  },
+  "buffer_candidates": [
+    { "id": "buffer_v1", "file": "buffer_v1_qnm.csv", "recorded": "2026-09-10T09:12:00Z", "note": "matched buffer, dialysis bath, first measurement" },
+    { "id": "buffer_v2", "file": "buffer_v2_qnm.csv", "recorded": "2026-09-12T15:40:00Z", "note": "re-measured after beamline feedback flagged drift" },
+    { "id": "buffer_no_overlap", "file": "buffer_no_overlap_qnm.csv", "recorded": "2026-09-11T11:00:00Z", "note": "wide-angle only buffer scan, disjoint q range" }
+  ],
+  "instrument_response_file": "instrument_response.json",
+  "mask_file": "mask.json",
+  "background_scale": { "value": 1.0, "sigma": 0.02, "note": "scale uncertainty from transmission matching" }
+}
