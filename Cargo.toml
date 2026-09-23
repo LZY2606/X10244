@@ -1,0 +1,19 @@
+[package]
+name = "saxs_scattering_bench"
+version = "0.1.0"
+edition = "2024"
+description = "Offline SAXS normalization, background subtraction and multi-interval evidence bench"
+
+[dependencies]
+axum = "0.8"
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tower-http = { version = "0.6", features = ["fs", "trace"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tempfile = "3"
