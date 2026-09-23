@@ -1,0 +1,8 @@
+{
+ "id": "meta.sample",
+ "exposure_s": 10.0,
+ "thickness_mm": 1.5,
+ "transmission": 0.42,
+ "transmission_rel_unc": 0.024,
+ "note": "透射率由二极管计数比给出，含 2.4% 相对不确定度"
+}

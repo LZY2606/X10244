@@ -1,0 +1,42 @@
+{
+ "id": "scenario.replay",
+ "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+ "steps": [
+  {
+   "id": "normalize",
+   "label": "归一化：I/(T·d·t)，q 统一到 nm^-1"
+  },
+  {
+   "id": "subtract_buf1",
+   "label": "背景扣除：缓冲液 v1（同网格），缩放 0.96±0.02"
+  },
+  {
+   "id": "fit_intervals",
+   "label": "区间候选：Guinier×3（重叠）+ Porod×2，不自动合并"
+  },
+  {
+   "id": "revise_transmission",
+   "label": "参数修订：透射率 0.42 → 0.40，依赖图局部重算"
+  },
+  {
+   "id": "introduce_buffer_v2",
+   "label": "源数据局部改动：缓冲液 v2（错位网格，仅重叠区插值）"
+  },
+  {
+   "id": "switch_buffer",
+   "label": "缓冲液版本切换 v1→v2，两分支均保留"
+  },
+  {
+   "id": "attempt_no_overlap",
+   "label": "边界：缓冲液 v3 无重叠区，拒绝直接相减"
+  },
+  {
+   "id": "conflicting_decisions",
+   "label": "并发人工决定：同一版本上的冲突与分支保留"
+  },
+  {
+   "id": "final_decision",
+   "label": "最终裁定：采纳 G1，G2/G3 保留未采纳"
+  }
+ ]
+}

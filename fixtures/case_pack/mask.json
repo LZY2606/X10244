@@ -1,0 +1,13 @@
+{
+ "id": "mask.primary",
+ "kind": "mask",
+ "source": "mask_0427.xml",
+ "q_unit": "A^-1",
+ "intervals": [
+  [
+   0.282,
+   0.3
+  ]
+ ],
+ "note": "束流阻挡器边缘遮罩，来自探测器掩膜文件"
+}
