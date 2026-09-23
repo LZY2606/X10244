@@ -1,0 +1,9 @@
+{
+  "id": "resp_pilatus3_2026q2",
+  "source": "beamline-calibration/2026-06-30/water_run14",
+  "scale": 1.0,
+  "scale_err": 0.002,
+  "scale_unit": "dimensionless",
+  "q_basis": "q[1/A] calibrated against silver behenate 58.38 A",
+  "note": "detector flat-field + solid-angle correction after azimuthal integration"
+}

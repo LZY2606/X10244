@@ -1,0 +1,16 @@
+{
+  "id": "mask_beamstop_ring",
+  "source": "beamline-masks/2026-06-30/mask_after_burst.tif",
+  "masked_q_ranges_1/A": [
+    [
+      0.074,
+      0.086
+    ]
+  ],
+  "masked_indices_sample": [
+    39,
+    40,
+    41
+  ],
+  "note": "dead-module ring; points retained in raw layer, excluded from derivation"
+}

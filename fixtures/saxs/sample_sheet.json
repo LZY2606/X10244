@@ -1,0 +1,130 @@
+{
+  "records": [
+    {
+      "curve": "sample_lz_b.dat",
+      "id": "sample_lz_b",
+      "role": "sample",
+      "name": "lysozyme 4.2 mg/mL in Tris",
+      "exposure": {
+        "raw": "1800",
+        "unit": "s"
+      },
+      "thickness": {
+        "raw": "0.100",
+        "unit": "cm"
+      },
+      "transmission": {
+        "raw": "0.872",
+        "err": "0.003",
+        "unit": "dimensionless"
+      },
+      "instrument_response": "resp_pilatus3_2026q2",
+      "mask": "mask_beamstop_ring"
+    },
+    {
+      "curve": "buffer_tris_v1.dat",
+      "id": "buffer_tris_v1",
+      "role": "buffer",
+      "name": "Tris buffer batch 2026-09-10",
+      "exposure": {
+        "raw": "1800",
+        "unit": "s"
+      },
+      "thickness": {
+        "raw": "0.100",
+        "unit": "cm"
+      },
+      "transmission": {
+        "raw": "0.915",
+        "err": "0.003",
+        "unit": "dimensionless"
+      },
+      "instrument_response": "resp_pilatus3_2026q2",
+      "mask": "mask_beamstop_ring"
+    },
+    {
+      "curve": "buffer_tris_v2.dat",
+      "id": "buffer_tris_v2",
+      "role": "buffer",
+      "name": "Tris buffer batch 2026-09-17",
+      "exposure": {
+        "raw": "1800",
+        "unit": "s"
+      },
+      "thickness": {
+        "raw": "0.100",
+        "unit": "cm"
+      },
+      "transmission": {
+        "raw": "0.909",
+        "err": "0.004",
+        "unit": "dimensionless"
+      },
+      "instrument_response": "resp_pilatus3_2026q2",
+      "mask": "mask_beamstop_ring"
+    },
+    {
+      "curve": "buffer_shifted_grid.dat",
+      "id": "buffer_shifted_grid",
+      "role": "buffer",
+      "name": "Tris buffer re-integrated on shifted q grid",
+      "exposure": {
+        "raw": "1800",
+        "unit": "s"
+      },
+      "thickness": {
+        "raw": "0.100",
+        "unit": "cm"
+      },
+      "transmission": {
+        "raw": "0.915",
+        "err": "0.003",
+        "unit": "dimensionless"
+      },
+      "instrument_response": "resp_pilatus3_2026q2",
+      "mask": "mask_beamstop_ring"
+    },
+    {
+      "curve": "buffer_far_grid.dat",
+      "id": "buffer_far_grid",
+      "role": "buffer",
+      "name": "mislabeled high-q scan (grid does not overlap)",
+      "exposure": {
+        "raw": "600",
+        "unit": "s"
+      },
+      "thickness": {
+        "raw": "0.100",
+        "unit": "cm"
+      },
+      "transmission": {
+        "raw": "0.920",
+        "err": "0.003",
+        "unit": "dimensionless"
+      },
+      "instrument_response": "resp_pilatus3_2026q2",
+      "mask": "mask_beamstop_ring"
+    },
+    {
+      "curve": "buffer_bumpy.dat",
+      "id": "buffer_bumpy",
+      "role": "buffer",
+      "name": "buffer with aggregation bump (scale poorly constrained)",
+      "exposure": {
+        "raw": "1800",
+        "unit": "s"
+      },
+      "thickness": {
+        "raw": "0.100",
+        "unit": "cm"
+      },
+      "transmission": {
+        "raw": "0.912",
+        "err": "0.009",
+        "unit": "dimensionless"
+      },
+      "instrument_response": "resp_pilatus3_2026q2",
+      "mask": "mask_beamstop_ring"
+    }
+  ]
+}
