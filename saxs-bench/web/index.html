@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>散射曲线台 · SAXS 归一化 / 背景扣除 / 多区间模型证据</title>
+<style>
+  :root{
+    --bg:#0f141b; --panel:#171e28; --panel2:#1e2733; --ink:#e6edf3; --mut:#93a1b0;
+    --line:#2a3542; --acc:#5db0ff; --ok:#3fb950; --warn:#d29922; --block:#f85149;
+    --sample:#5db0ff; --buf:#d29922; --sub:#39d0d8; --rej:#f85149; --acc2:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif}
+  header{padding:12px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel)}
+  header h1{font-size:16px;margin:0;font-weight:650}
+  header .sub{color:var(--mut);font-size:12px}
+  .spacer{flex:1}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:6px 11px;cursor:pointer;font-size:13px}
+  button:hover{border-color:var(--acc)}
+  button.primary{background:#1c3a57;border-color:#2d5a87}
+  button.danger{border-color:#7a3530;color:#ffb4ae}
+  .wrap{display:grid;grid-template-columns:300px 1fr 330px;gap:12px;padding:12px;min-height:calc(100vh - 56px)}
+  .col{display:flex;flex-direction:column;gap:12px;min-height:0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .card h2{font-size:13px;margin:0 0 8px;color:var(--acc);font-weight:650;letter-spacing:.02em}
+  .muted{color:var(--mut);font-size:12px}
+  .scroll{overflow:auto;max-height:340px}
+  .ev{border-left:3px solid var(--line);padding:5px 9px;margin-bottom:5px;cursor:pointer;border-radius:0 6px 6px 0;background:var(--panel2)}
+  .ev:hover{border-left-color:var(--acc)}
+  .ev.cur{border-left-color:var(--ok);background:#16261c}
+  .ev .seq{color:var(--mut);font-size:11px;margin-right:6px}
+  .tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);color:var(--mut);margin-right:5px}
+  .tag.ok{color:var(--ok);border-color:#245c31}
+  .tag.warn{color:var(--warn);border-color:#5c481a}
+  .tag.block{color:var(--block);border-color:#5c2622}
+  .tag.acc{color:#7fd0ff;border-color:#22506e}
+  .branch{border:1px solid var(--line);border-radius:8px;padding:9px;margin-bottom:8px;cursor:pointer;background:var(--panel2)}
+  .branch.sel{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+  .branch.blocked{opacity:.72}
+  .branch .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .pill{font-size:10.5px;padding:1px 8px;border-radius:999px;border:1px solid var(--line)}
+  .pill.accepted{color:var(--ok);border-color:#245c31}
+  .pill.rejected{color:var(--block);border-color:#5c2622}
+  .pill.proposed{color:#7fd0ff;border-color:#22506e}
+  .pill.superseded{color:var(--mut)}
+  svg{width:100%;height:auto;display:block;background:#0c1117;border-radius:8px}
+  .pt{cursor:pointer}
+  .pt:hover{filter:brightness(1.5)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-top:6px}
+  .legend i{display:inline-block;width:12px;height:3px;margin-right:5px;vertical-align:middle}
+  .tabs{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+  .tabs button.active{background:#1c3a57;border-color:#2d5a87;color:#cfe8ff}
+  table{border-collapse:collapse;width:100%;font-size:12px}
+  th,td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
+  th{color:var(--mut);font-weight:500}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px}
+  .kv .k{color:var(--mut)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:#bcd}
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line);border-radius:12px;max-width:760px;width:92%;max-height:86vh;overflow:auto;padding:18px}
+  .modal h3{margin:0 0 10px;color:var(--acc)}
+  .close{float:right}
+  .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#1c2a1a;border:1px solid #2f5d33;color:#bdf0c2;padding:9px 16px;border-radius:8px;display:none;z-index:80;max-width:80%}
+  .toast.err{background:#2f1716;border-color:#6e2f2b;color:#ffc4bf}
+  .guide{position:fixed;right:14px;bottom:14px;width:330px;background:var(--panel);border:1px solid #2d5a87;border-radius:10px;padding:12px;z-index:60;display:none;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .guide.open{display:block}
+  .gstep{margin-bottom:7px;font-size:12.5px}
+  .gstep b{color:#7fd0ff}
+  .bar{height:6px;background:#16202b;border-radius:4px;overflow:hidden;margin-top:8px}
+  .bar > div{height:100%;background:var(--acc);width:0}
+  details summary{cursor:pointer;color:var(--acc);font-size:12.5px;margin:4px 0}
+  .cand{border:1px solid var(--line);border-radius:7px;padding:7px;margin-bottom:6px;background:var(--panel2)}
+  .cand.inv{border-color:#245c31}
+  .cand.inv .h{color:var(--ok)}
+  .resid{fill:#a371f7}
+  .toolbar{display:flex;gap:6px;flex-wrap:wrap}
+  input[type=number]{width:80px;background:#0c1117;border:1px solid var(--line);color:var(--ink);border-radius:5px;padding:4px}
+  .branchpoint:hover{stroke:#fff;stroke-width:1.5}
+  .hint{font-size:11.5px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>散射曲线台</h1>
+  <span class="sub">SAXS 归一化 · 背景扣除 · 多区间模型证据（离线 · 事件溯源）</span>
+  <span class="spacer"></span>
+  <span class="muted" id="headinfo">head=0</span>
+  <button onclick="replay(false)">重放案例</button>
+  <button onclick="crashTest()">写入中断演练</button>
+  <button onclick="exportPack()">导出案例包</button>
+  <button class="danger" onclick="wipeDb()">删除数据库</button>
+  <label class="hint" style="display:flex;align-items:center;gap:5px">导入<input type="file" id="importfile" accept="application/json" style="color:var(--mut)"></label>
+  <button onclick="toggleGuide()">90 秒导览</button>
+</header>
+
+<div class="wrap">
+  <!-- LEFT: provenance + history -->
+  <div class="col">
+    <div class="card">
+      <h2>原始材料与来源（全部保留）</h2>
+      <div id="rawlist" class="scroll"></div>
+    </div>
+    <div class="card">
+      <h2>事件链 / 历史（点击回到当时版本）</h2>
+      <div class="muted" style="margin-bottom:6px">回到旧事件时按当时依赖与规则重放，绝不以最新结果覆盖历史。</div>
+      <div id="evlist" class="scroll" style="max-height:300px"></div>
+      <div class="toolbar" style="margin-top:8px">
+        <button onclick="backToHead()">回到当前 head</button>
+        <span id="viewlabel" class="muted"></span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>依赖图传播（重算说明）</h2>
+      <div class="hint" style="margin-bottom:6px">模拟局部源数据改动，查看哪些结果仍有效、哪些需重算。</div>
+      <button onclick="explainValidity()">说明受影响范围</button>
+      <div id="validity" style="margin-top:8px"></div>
+    </div>
+  </div>
+
+  <!-- CENTER: plots -->
+  <div class="col">
+    <div class="card">
+      <h2>复核视图：原曲线 / 扣背景 / 误差带 / 残差 / 区间候选</h2>
+      <div class="tabs" id="plottabs"></div>
+      <div id="plot"></div>
+      <div class="legend">
+        <span><i style="background:var(--sample)"></i>样品 I(q)</span>
+        <span><i style="background:var(--buf)"></i>缓冲液 k·I_b(q)</span>
+        <span><i style="background:var(--sub)"></i>扣背景 I(q)</span>
+        <span><i style="background:#3fb950;opacity:.5"></i>±1σ 误差带</span>
+        <span><i style="background:var(--acc2)"></i>残差 ×（下方轴）</span>
+      </div>
+      <div class="hint" style="margin-top:6px">点击任意派生点（●）可追回样品与缓冲液两条源曲线。</div>
+    </div>
+    <div class="card">
+      <h2>判定事件（机器可读）</h2>
+      <div id="judgments"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: branches + candidates + decisions -->
+  <div class="col">
+    <div class="card">
+      <h2>分支 / 缓冲液候选（多解保留，不收敛成单一答案）</h2>
+      <div class="hint" style="margin-bottom:6px">每个（缓冲液版本 × 拟合窗）都是独立分支；接受/否决/调参都只追加事件。</div>
+      <div id="branches" class="scroll" style="max-height:330px"></div>
+    </div>
+    <div class="card">
+      <h2>区间候选（Guinier / Porod 不自动拼接）</h2>
+      <div id="candidates" class="scroll" style="max-height:260px"></div>
+    </div>
+    <div class="card">
+      <h2>人工裁定</h2>
+      <div class="toolbar">
+        <input type="number" id="fitlo" step="0.01" value="0.05" title="拟合窗 lo">
+        <input type="number" id="fithi" step="0.01" value="0.30" title="拟合窗 hi">
+        <button onclick="addFitWindow()">参数修订(新分支)</button>
+      </div>
+      <div class="toolbar" style="margin-top:8px">
+        <button class="primary" onclick="decide('accept')">接受当前分支</button>
+        <button class="danger" onclick="decide('reject')">否决当前分支</button>
+      </div>
+      <div id="decisions" style="margin-top:8px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- traceback modal -->
+<div class="modal-bg" id="provmodal">
+  <div class="modal">
+    <button class="close" onclick="closeModal('provmodal')">关闭</button>
+    <h3>派生点来源追溯（两条源曲线）</h3>
+    <div id="provbody"></div>
+  </div>
+</div>
+
+<!-- conflict modal -->
+<div class="modal-bg" id="confmodal">
+  <div class="modal">
+    <button class="close" onclick="closeModal('confmodal')">关闭</button>
+    <h3>并发编辑冲突（可解决）</h3>
+    <div id="confbody" class="mono"></div>
+    <div class="toolbar" style="margin-top:12px">
+      <button class="primary" onclick="resolveConflictRefresh()">刷新到最新版本后再决定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="guide" id="guide">
+  <h2 style="color:#7fd0ff;margin:0 0 8px">90 秒导览</h2>
+  <div id="gsteps"></div>
+  <div class="bar"><div id="gbar"></div></div>
+  <div class="toolbar" style="margin-top:10px">
+    <button onclick="runGuide()" class="primary">自动播放</button>
+    <button onclick="toggleGuide()">关闭</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+const state = { snap:null, viewSeq:null, selBranch:null, baseSeq:0, conflict:null };
+const $ = id => document.getElementById(id);
+const SAMPLE_ID = "prof_sample_A";
+const BUF = { V1:"prof_buffer_v1", V2:"prof_buffer_v2", NO:"prof_buffer_nooverlap" };
+
+async function api(path, opts){
+  const r = await fetch(path, opts);
+  if(r.status===409){ const j = await r.json(); showConflict(j.conflict||j); throw j; }
+  if(!r.ok){ const t = await r.text(); throw new Error(t); }
+  const ct = r.headers.get("content-type")||"";
+  return ct.includes("json") ? r.json() : r.text();
+}
+function toast(msg, err){ const t=$("toast"); t.textContent=msg; t.className="open toast"+(err?" err":""); setTimeout(()=>t.className="toast",3200); }
+function fmt(v,d=4){ if(v===null||v===undefined||!isFinite(v)) return "—"; return Number(v).toExponential(d); }
+function fixed(v,d=3){ if(v===null||v===undefined||!isFinite(v)) return "—"; return Number(v).toFixed(d); }
+function sevTag(s){ return s==="blocked"?'<span class="tag block">阻断</span>':s==="warning"?'<span class="tag warn">警告</span>':'<span class="tag ok">通过</span>'; }
+
+async function load(seq){
+  const q = seq!=null ? "?seq="+seq : "";
+  state.snap = await api("/api/state"+q);
+  state.viewSeq = state.snap.view_seq;
+  state.baseSeq = state.snap.head_seq;
+  if(!state.selBranch || !state.snap.branches.find(b=>b.id===state.selBranch)){
+    state.selBranch = (state.snap.branches.find(b=>b.selection==="proposed" && !b.blocked)||state.snap.branches[0]||{}).id;
+  }
+  render();
+}
+function render(){
+  const s=state.snap; if(!s) return;
+  $("headinfo").textContent=`head=${s.head_seq} · view=${s.view_seq} · ${s.rules_version}`;
+  $("viewlabel").textContent = s.view_seq===s.head_seq ? "（当前版本）" : `（历史版本 #${s.view_seq}）`;
+  renderRaw(); renderEvents(); renderBranches(); renderPlot(); renderJudgments(); renderCandidates(); renderDecisions();
+}
+function renderRaw(){
+  const s=state.snap;
+  $("rawlist").innerHTML = s.raw_profiles.map(p=>{
+    const qb = p.q_basis ? p.q_basis : "未知基准";
+    const blocked = p.diagnostics.filter(j=>j.severity==="blocked").length;
+    return `<details><summary>${p.role==="Sample"?"🧪样品":"🧫缓冲液"} ${p.label} <span class="mono">${p.id}</span></summary>
+      <div class="kv" style="margin-top:6px">
+        <span class="k">版本</span><span class="mono">${p.version}</span>
+        <span class="k">q 基准(原始)</span><span class="mono">${p.q_basis_raw} → ${qb}</span>
+        <span class="k">强度单位</span><span class="mono">${p.intensity_unit}</span>
+        <span class="k">曝光</span><span class="mono">${p.exposure.raw} ${p.exposure.unit}（原始保留）</span>
+        <span class="k">厚度</span><span class="mono">${p.thickness.raw} ${p.thickness.unit}</span>
+        <span class="k">透射率</span><span class="mono">${p.transmission.raw} ${p.transmission.unit} ±${(p.transmission_rel_uncertainty*100).toFixed(0)}%</span>
+        <span class="k">仪器响应</span><span class="mono">${p.instrument_response.source} · ${p.instrument_response.reference}</span>
+        <span class="k">遮罩来源</span><span class="mono">${p.mask_source.source} · ${p.mask_source.reference}（${p.mask_source.masked_count} 点）</span>
+        <span class="k">点数</span><span>${p.points.length}（含被遮罩但保留的点）</span>
+      </div>
+      ${blocked?`<div class="tag block">${blocked} 阻断诊断</div>`:""}
+      <details><summary class="hint">原始 q/I/误差（前 6 点，逐字保留）</summary>
+        <table><tr><th>#</th><th>q(原)</th><th>I(原)</th><th>σ(原)</th><th>遮罩</th></tr>
+        ${p.points.slice(0,6).map(pt=>`<tr><td>${pt.index}</td><td class="mono">${pt.q_raw}</td><td class="mono">${pt.i_raw}</td><td class="mono">${pt.e_raw}</td><td>${pt.masked?("⛔ "+(pt.mask_reason||"")):""}</td></tr>`).join("")}
+        </table></details>
+    </details>`;
+  }).join("");
+}
+
+function renderEvents(){
+  const s=state.snap;
+  $("evlist").innerHTML = s.events.map(e=>
+    `<div class="ev ${e.seq===s.view_seq?"cur":""}" onclick="load(${e.seq})">
+       <span class="seq">#${e.seq}</span><span class="tag">${e.kind}</span>${e.summary}
+       <div class="mono hint">${e.id}</div>
+     </div>`).join("");
+}
+
+function renderBranches(){
+  const s=state.snap;
+  const labels={accepted:"已接受",rejected:"已否决",proposed:"当前提议",superseded:"旧候选(保留)",param_adjusted:"已调参"};
+  $("branches").innerHTML = s.branches.map(b=>{
+    const sel = b.id===state.selBranch?"sel":"";
+    const blk = b.blocked?"blocked":"";
+    const scale = b.scale!=null ? `k=${fixed(b.scale,4)} ± ${fixed(b.scale_sigma,4)}` : "无缩放";
+    const ov = b.overlap_lo!=null ? `重叠[${fixed(b.overlap_lo)},${fixed(b.overlap_hi)}] n=${b.overlap_points}` : "无重叠";
+    return `<div class="branch ${sel} ${blk}" onclick="selectBranch('${b.id}')">
+      <div class="row"><b>${b.buffer_label}</b>
+        <span class="pill ${b.selection}">${labels[b.selection]||b.selection}</span>
+        ${b.blocked?'<span class="tag block">blocked</span>':""}
+      </div>
+      <div class="muted mono" style="margin:3px 0">${b.id}</div>
+      <div class="hint">拟合窗[${fixed(b.fit_lo)},${fixed(b.fit_hi)}] · ${scale}</div>
+      <div class="hint">${ov} · rms=${b.rms!=null?fixed(b.rms,4):"—"}</div>
+    </div>`;
+  }).join("") || '<div class="hint">尚无分支（先重放案例）。</div>';
+}
+
+function renderDecisions(){
+  const d = state.snap.decisions;
+  $("decisions").innerHTML = d.length? d.map(x=>
+    `<div class="cand"><span class="tag ${x.decision.kind==="accept"?"ok":x.decision.kind==="reject"?"block":"warn"}">${
+      x.decision.kind==="accept"?"接受":x.decision.kind==="reject"?"否决":"调参"}</span>
+      <span class="hint">@事件#${x.at_seq}</span>
+      <div class="mono hint">${x.branch_id.slice(0,26)}…</div>
+      <div>${x.decision.note}</div></div>`).join("")
+    : '<div class="hint">还没有人工裁定。确认不会不可逆覆盖：未选分支始终保留。</div>';
+}
+function curBranch(){ return state.snap.branches.find(b=>b.id===state.selBranch); }
+function normById(id){ return state.snap.norms.find(n=>n.id===id); }
+
+function renderPlot(){
+  const s=state.snap, b=curBranch();
+  const tabs = s.branches.map(x=>
+    `<button class="${x.id===state.selBranch?"active":""} ${x.blocked?"danger":""}" onclick="selectBranch('${x.id}')">${x.buffer_label}${x.blocked?" ⛔":""}</button>`).join("");
+  $("plottabs").innerHTML = tabs || "";
+  if(!b){ $("plot").innerHTML='<div class="hint">没有可显示的分支。</div>'; return; }
+
+  const sample = normById(b.sample_norm);
+  const buffer = normById(b.buffer_norm);
+  const W=920,H=430,P={l:62,r:20,t:16,b:58}, RH=150;
+  const plotH = H-P.t-P.b-RH;
+  // gather x range from sample and overlap points
+  const xs=[], ys=[];
+  sample.points.forEach(p=>{xs.push(p.q);ys.push(p.i);});
+  (buffer?p.buffer_points:[]);
+  b.points.forEach(p=>{ if(p.i_sub!=null){ys.push(p.i_sub);} if(p.buffer_i!=null) ys.push((b.scale||1)*p.buffer_i); });
+  const xmin=Math.min(...sample.points.map(p=>p.q));
+  const xmax=Math.max(...sample.points.map(p=>p.q));
+  const posY=ys.filter(v=>v>0);
+  let ymin=Math.min(...posY)*0.8, ymax=Math.max(...ys.filter(isFinite))*1.25;
+  const lx=v=>P.l+(Math.log(v)-Math.log(xmin))/(Math.log(xmax)-Math.log(xmin))*(W-P.l-P.r);
+  const ly=v=>P.t+plotH-(Math.log(v)-Math.log(ymin))/(Math.log(ymax)-Math.log(ymin))*plotH;
+
+  // residual scale (can be negative) on bottom axis
+  const res=b.points.filter(p=>p.i_sub!=null).map(p=>p.i_sub/(p.sigma_total||1));
+  const rmax=Math.max(1, ...res.map(Math.abs));
+  const ryTop=P.t+plotH+8, ryBot=H-P.b;
+  const ry=v=>ryTop+(1 - (v/rmax+1)/2)*(ryBot-ryTop);
+
+  let svg=`<svg viewBox="0 0 ${W} ${H}">`;
+  // grid + log y ticks
+  [1000,100,10,1,0.1,0.01,0.001].forEach(v=>{ if(v>ymin&&v<ymax){ svg+=`
+    <line x1="${P.l}" y1="${ly(v)}" x2="${W-P.r}" y2="${ly(v)}" stroke="#1c2530"/>
+    <text x="${P.l-8}" y="${ly(v)+3}" fill="#5c6b7a" font-size="10" text-anchor="end">${v}</text>`;}});
+  for(let d=0.01;d<=0.5;d+=0.01){ const major=Math.abs(d/Math.round(d*100)*100- d)<1e-9 && d*100%5===0; if(d>=xmin&&d<=xmax&&major){ svg+=`<line x1="${lx(d)}" y1="${P.t}" x2="${lx(d)}" y2="${ryBot}" stroke="#151d27"/><text x="${lx(d)}" y="${H-P.b+16}" fill="#5c6b7a" font-size="10" text-anchor="middle">${d.toFixed(2)}</text>`;}}
+  svg+=`<text x="${(P.l+W-P.r)/2}" y="${H-18}" fill="#93a1b0" font-size="12" text-anchor="middle">q [Å⁻¹]（对数横轴）</text>`;
+  svg+=`<text transform="translate(16,${P.t+plotH/2}) rotate(-90)" fill="#93a1b0" font-size="12" text-anchor="middle">I（对数）</text>`;
+  // zero residual line
+  svg+=`<line x1="${P.l}" y1="${ry(0)}" x2="${W-P.r}" y2="${ry(0)}" stroke="#33414f"/>`;
+  svg+=`<text x="${P.l-8}" y="${ry(rmax)+3}" fill="#7a5c9e" font-size="9" text-anchor="end">+${rmax.toFixed(0)}σ</text>`;
+  svg+=`<text x="${P.l-8}" y="${ry(-rmax)+3}" fill="#7a5c9e" font-size="9" text-anchor="end">-${rmax.toFixed(0)}σ</text>`;
+
+  // sample curve
+  svg+=path(sample.points.map(p=>[lx(p.q),ly(p.i)]),"var(--sample)",2,false);
+  // scaled buffer curve (only interpolated overlap segment)
+  const seg=b.points.filter(p=>p.buffer_i!=null).map(p=>[lx(p.q),ly((b.scale||1)*p.buffer_i)]);
+  if(seg.length>1) svg+=path(seg,"var(--buf)",2,false);
+  // error band on subtracted
+  const band=b.points.filter(p=>p.i_sub!=null);
+  let top=[],bot=[];
+  band.forEach(p=>{ const hi=p.i_sub+p.sigma_total, lo=Math.max(p.i_sub-p.sigma_total, ymin); top.push([lx(p.q),ly(hi)]); bot.push([lx(p.q),ly(lo)]); });
+  if(top.length>1){ svg+=`<path d="${lineD(top)} L${bot.slice().reverse().map(p=>p.join(",")).join(" L")} Z" fill="#3fb950" opacity="0.13"/>`; }
+  // subtracted line
+  const sub=band.map(p=>[lx(p.q),ly(Math.max(p.i_sub,ymin))]);
+  if(sub.length>1) svg+=path(sub,"var(--sub)",2.2,false);
+
+  // interval candidate shading (guinier=blue, porod=purple) on plot top
+  b.intervals.forEach(c=>{ if(!c.valid) return; const x1=lx(Math.max(c.q_lo,xmin)),x2=lx(Math.min(c.q_hi,xmax));
+    svg+=`<rect x="${x1}" y="${P.t}" width="${x2-x1}" height="${plotH}" fill="${c.kind==="guinier"?"#5db0ff":"#a371f7"}" opacity="0.07"/>`; });
+
+  // out-of-overlap sample points greyed small
+  b.points.filter(p=>!p.in_overlap).forEach(p=>{ svg+=`<circle cx="${lx(p.q)}" cy="${ly(p.sample_i)}" r="2.2" fill="#46545f"/>`; });
+
+  // clickable derived points + residual crosses
+  band.forEach(p=>{
+    svg+=`<circle class="pt branchpoint" data-pid="${p.id}" cx="${lx(p.q)}" cy="${ly(Math.max(p.i_sub,ymin))}" r="3.4" fill="${p.i_sub<0?"#f85149":"#39d0d8"}"/>`;
+    const rv=p.i_sub/(p.sigma_total||1);
+    svg+=`<path class="pt" data-pid="${p.id}" d="M${lx(p.q)-3},${ry(rv)} L${lx(p.q)+3},${ry(rv)} M${lx(p.q)},${ry(rv)-3} L${lx(p.q)},${ry(rv)+3}" stroke="#a371f7" stroke-width="1.2"/>`;
+  });
+  svg+=`</svg>`;
+  $("plot").innerHTML=svg;
+  $("plot").querySelectorAll(".pt").forEach(el=>el.addEventListener("click",()=>showProvenance(el.dataset.pid)));
+}
+
+function path(pts,color,w,fill){ if(pts.length<1) return ""; return `<path d="${lineD(pts)}" fill="none" stroke="${color}" stroke-width="${w}"/>`; }
+function lineD(pts){ return "M"+pts.map(p=>p[0].toFixed(1)+","+(isFinite(p[1])?p[1].toFixed(1):0)).join(" L"); }
+function selectBranch(id){ state.selBranch=id; renderBranches(); renderPlot(); renderJudgments(); renderCandidates(); }
+function renderJudgments(){
+  const b=curBranch(); if(!b){$("judgments").innerHTML="";return;}
+  const ruleBadge = id=>`<span class="tag acc mono">${id}</span>`;
+  $("judgments").innerHTML = b.judgments.map(j=>
+    `<div style="margin-bottom:6px">${sevTag(j.severity)} ${ruleBadge(j.rule_id)} ${j.message}
+       <div class="mono hint">${JSON.stringify(j.evidence)}</div></div>`).join("")
+    + '<details><summary class="hint">归一化层判定（样品+缓冲液）</summary>'
+    + [b.sample_norm,b.buffer_norm].map(id=>{const n=normById(id); return n.judgments.map(j=>
+       `<div style="margin:4px 0">${sevTag(j.severity)} <span class="tag acc mono">${j.rule_id}</span> ${j.message}
+        <div class="mono hint">${n.label} · ${JSON.stringify(j.evidence)}</div></div>`).join("");}).join("")
+    + '</details>';
+}
+
+function renderCandidates(){
+  const b=curBranch(); if(!b){$("candidates").innerHTML="";return;}
+  const g=b.intervals.filter(c=>c.kind==="guinier"), p=b.intervals.filter(c=>c.kind==="porod");
+  const block=(t,arr)=>`<div class="hint" style="margin:6px 0 3px;color:${t==="Guinier"?"#7fd0ff":"#c9a0ff"}">${t} 候选（${arr.filter(c=>c.valid).length} 合法，共 ${arr.length}）</div>`
+    + (arr.length?arr.map(c=>`<div class="cand ${c.valid?"inv":""}">
+        <div class="h hint">[${fixed(c.q_lo)},${fixed(c.q_hi)}] n=${c.n_points} χ²=${fixed(c.chi2,3)} rms=${fixed(c.rms,4)}</div>
+        <div class="hint">${c.reason} · ${JSON.stringify(c.params)}</div></div>`).join("")
+      :'<div class="hint">无候选（正强度点不足或被阻断）</div>');
+  $("candidates").innerHTML =
+    '<div class="tag warn">两类区间独立列出，绝不自动拟合成单一模型</div>'
+    + block("Guinier",g) + block("Porod",p)
+    + `<div class="hint" style="margin-top:6px">多候选残差：不同窗口/缓冲液版本在“分支”面板并列保留。</div>`;
+}
+
+async function showProvenance(pid){
+  try{
+    const seq = state.viewSeq!==state.snap.head_seq ? state.viewSeq : undefined;
+    const p = await api("/api/provenance/"+encodeURIComponent(pid)+(seq!=null?"?seq="+seq:""));
+    const src = (t,s)=>`
+      <div class="cand"><b>${t}：${s.label}</b> <span class="mono">${s.profile_id} #${s.point_index}</span>
+        <div class="kv" style="margin-top:6px">
+          <span class="k">归一化曲线</span><span class="mono">${s.norm_id}</span>
+          <span class="k">q(归一化 Å⁻¹)</span><span class="mono">${fmt(s.q)}</span>
+          <span class="k">q(源基准)</span><span class="mono">${fmt(s.q_source_basis)}</span>
+          <span class="k">I(归一化)</span><span class="mono">${fmt(s.i)}</span>
+          <span class="k">σ(统计)</span><span class="mono">${fmt(s.sigma_stat)}</span>
+          <span class="k">原始 q 文本</span><span class="mono">${s.raw_q}</span>
+          <span class="k">原始 I 文本</span><span class="mono">${s.raw_i}</span>
+          <span class="k">原始 σ 文本</span><span class="mono">${s.raw_e}</span>
+          <span class="k">遮罩</span><span>${s.masked?("⛔ "+(s.mask_reason||"")):"否"}</span>
+          ${s.lo!=null?`<span class="k">插值括号</span><span class="mono">缓冲液点 [${s.lo}, ${s.hi}]（重叠区内线性插值）</span>`:""}
+        </div></div>`;
+    $("provbody").innerHTML =
+      `<div class="hint" style="margin-bottom:8px">派生点 <span class="mono">${p.point_id}</span> @ q=${fmt(p.q)} Å⁻¹ · 重叠区内：${p.in_overlap?"是":"否（不做相减）"}</div>`
+      + src("源曲线 1（样品）", p.sample)
+      + (p.buffer ? src("源曲线 2（缓冲液，已插值）", p.buffer)
+                  : '<div class="cand"><b>源曲线 2（缓冲液）</b><div class="tag block">该 q 不在重叠区：不插值、不相减，派生强度为空。</div></div>');
+    openModal("provmodal");
+  }catch(e){ toast("追溯失败: "+e.message,true); }
+}
+function openModal(id){$(id).classList.add("open");}
+function closeModal(id){$(id).classList.remove("open");}
+async function decide(kind){
+  const b=curBranch(); if(!b){toast("先选择一个分支",true);return;}
+  const note = kind==="accept" ? "界面复核后接受该分支" : kind==="reject" ? "界面复核后否决该分支（其它候选保留）" : "参数调整";
+  try{
+    await api("/api/decide",{method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({base_seq:state.baseSeq, sample_id:SAMPLE_ID, branch_id:b.id, kind, note, params:{}})});
+    toast("已追加裁定事件（历史不可覆盖，未选分支保留）");
+    await load();
+  }catch(e){ /* conflict modal already shown */ }
+}
+
+async function addFitWindow(){
+  const b=curBranch(); if(!b){toast("先选择一个分支",true);return;}
+  const lo=parseFloat($("fitlo").value), hi=parseFloat($("fithi").value);
+  if(!(lo<hi)){toast("拟合窗需 lo<hi",true);return;}
+  try{
+    await api("/api/fit-window",{method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({base_seq:state.baseSeq, sample_id:SAMPLE_ID, buffer_id:b.buffer_norm? bufferIdOf(b):BUF.V1, fit_lo:lo, fit_hi:hi})});
+    toast("参数修订已产生新分支，旧窗口分支作为候选保留");
+    await load();
+  }catch(e){}
+}
+function bufferIdOf(b){ // map norm id back to profile id via norms source
+  const n=normById(b.buffer_norm); return n? n.source_profile : BUF.V1;
+}
+
+async function replay(){
+  try{
+    const r=await api("/api/replay",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({seed:0})});
+    toast("重放完成："+r.applied+" 个事件，head="+r.head_seq);
+    state.selBranch=null; await load();
+  }catch(e){toast("重放失败: "+e.message,true);}
+}
+async function crashTest(){
+  try{
+    const r=await api("/api/replay",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({seed:0,crash_at:5})});
+    toast(`写入中断演练：在第 ${r.step+1} 步崩溃，重启后 head=${r.recovered_head_seq}，原子性=${r.atomic}（旧版或完整新版）`);
+    await load();
+  }catch(e){toast("演练失败: "+e.message,true);}
+}
+async function exportPack(){
+  const pack=await api("/api/export");
+  const blob=new Blob([pack],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="saxs-case-pack.json"; a.click();
+  toast("案例包已导出（身份/顺序/来源均在事件内）");
+}
+async function wipeDb(){
+  if(!confirm("删除本地数据库（事件全部清空）？随后可用刚导出的案例包再导入。")) return;
+  await api("/api/reset",{method:"POST"});
+  state.selBranch=null; await load(); toast("本地数据库已删除");
+}
+$("importfile").addEventListener("change", async ev=>{
+  const f=ev.target.files[0]; if(!f) return;
+  const text=await f.text();
+  try{
+    const r=await api("/api/import",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({pack:text})});
+    toast("导入成功，事件数="+r.imported_events+"，head="+r.head_seq+"（身份与顺序保持）");
+    state.selBranch=null; await load();
+  }catch(e){toast("导入失败（历史不一致或格式错误）: "+e.message,true);}
+});
+
+function backToHead(){ state.viewSeq=null; load(); }
+
+async function explainValidity(){
+  // The local source edit in the replay touches the sample profile id.
+  const changed=[SAMPLE_ID];
+  const r=await api("/api/validity"+(state.viewSeq!=null?"?seq="+state.viewSeq:""),
+    {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({changed})});
+  $("validity").innerHTML =
+    `<div class="hint" style="margin-bottom:6px">改动来源：<span class="mono">${changed.join(", ")}</span></div>
+     <div class="tag warn">受影响（沿依赖图传播，仅这些需重算）：${r.affected.length}</div>
+     <div class="scroll" style="max-height:200px;margin-top:6px">`+
+     r.nodes.map(n=>{const col=n.status==="valid"?"var(--ok)":"var(--warn)";
+       return `<div style="margin:3px 0"><span class="mono" style="color:${col}">●</span> <span class="mono hint">${n.node_id.slice(0,30)}</span>
+         <div class="hint">${n.reason}</div></div>`;}).join("")+`</div>`;
+}
+
+function showConflict(c){
+  state.conflict=c;
+  $("confbody").textContent = JSON.stringify(c,null,2);
+  openModal("confmodal");
+}
+async function resolveConflictRefresh(){ closeModal("confmodal"); await load(); toast("已刷新到最新版本；请比较两个分支后重新裁定（原选择未被覆盖）"); }
+
+// ---- 90 second guided tour ----
+const GUIDE=[
+  "点“重放案例”：导入原始 q/I/误差、曝光、厚度、透射率、缓冲液候选、仪器响应与遮罩来源。",
+  "左栏展开原始材料，确认逐字保留的单位/基准与被遮罩点；点历史事件可回到当时版本。",
+  "中栏切换分支：v1/v2 为网格错位→仅重叠区插值；高q缓冲液显示“无重叠 blocked 不相减”。",
+  "点击任意青色派生点或紫色残差×，弹窗追回样品+缓冲液两条源曲线及插值括号。",
+  "右栏查看多个 Guinier/Porod 候选与残差；它们独立保留，不会被拼成单一模型。",
+  "用“参数修订”生成新拟合窗分支；接受/否决只追加事件，未选分支仍在。",
+  "点“说明受影响范围”，看局部源改动如何只沿依赖图传播、其它结果为何仍有效。",
+  "点“写入中断演练”验证崩溃后只见旧版或完整新版；导出→删除数据库→再导入，身份与顺序保持。"
+];
+function toggleGuide(){ const g=$("guide"); g.classList.toggle("open"); if(g.classList.contains("open")) drawGuide(0); }
+function drawGuide(i){ $("gsteps").innerHTML=GUIDE.map((t,k)=>`<div class="gstep">${k<=i?"<b>✓</b> ":""}${k===i?"<b>"+t+"</b>":t}</div>`).join(""); $("gbar").style.width=((i+1)/GUIDE.length*100)+"%"; }
+let gi=0, gt=null;
+async function runGuide(){
+  clearInterval(gt); gi=0;
+  await replay().catch(()=>{}); drawGuide(gi);
+  gt=setInterval(()=>{ gi++; if(gi>=GUIDE.length){clearInterval(gt);return;} drawGuide(gi);
+    if(gi===2){ const blk=state.snap.branches.find(b=>b.blocked); if(blk) selectBranch(blk.id); }
+  },9000);
+}
+
+load().catch(e=>toast("初始加载: "+e.message,true));
+</script>
+</body>
+</html>
