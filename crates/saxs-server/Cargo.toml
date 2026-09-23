@@ -1,0 +1,19 @@
+[package]
+name = "saxs-server"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "saxs-bench"
+path = "src/main.rs"
+
+[dependencies]
+saxs-core = { path = "../saxs-core" }
+saxs-store = { path = "../saxs-store" }
+axum.workspace = true
+tower.workspace = true
+tower-http.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+rusqlite.workspace = true
