@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>散射曲线台 · SAXS 归一化与背景扣除</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">散射曲线台 <span>SAXS normalize / background / intervals</span></div>
+  <div class="actions">
+    <button id="btn-path">样例路径</button>
+    <button id="btn-replay">重放案例包</button>
+    <button id="btn-export">导出事件</button>
+    <label class="filebtn">导入<input id="file-import" type="file" accept="application/json" hidden></label>
+    <span id="head-label"></span>
+  </div>
+</header>
+<main>
+  <aside class="left">
+    <h3>事件时间线</h3>
+    <div id="timeline"></div>
+  </aside>
+  <section class="center">
+    <div id="path-banner" class="banner hidden"></div>
+    <div class="panel">
+      <h3>曲线视图 <small>点击扣除曲线上的派生点 → 追溯两条源曲线</small></h3>
+      <div class="legend">
+        <label><input type="checkbox" id="lg-raw" checked> 原始 I(q)</label>
+        <label><input type="checkbox" id="lg-norm" checked> 归一化</label>
+        <label><input type="checkbox" id="lg-sub" checked> 扣背景+误差带</label>
+        <label><input type="checkbox" id="lg-resid" checked> 残差/候选</label>
+        <label><input type="checkbox" id="lg-logx" checked> log q</label>
+        <label><input type="checkbox" id="lg-logy" checked> log I</label>
+      </div>
+      <svg id="chart" width="900" height="420"></svg>
+      <svg id="reschart" width="900" height="130"></svg>
+    </div>
+    <div class="panel">
+      <h3>诊断事件（机器可读取）</h3>
+      <div id="diagnostics"></div>
+    </div>
+    <div class="panel">
+      <h3>区间候选与多候选残差</h3>
+      <div id="intervals"></div>
+    </div>
+    <div class="panel">
+      <h3>裁定（接受 / 否定 / 参数调整）</h3>
+      <div id="decisions"></div>
+    </div>
+  </section>
+  <aside class="right">
+    <h3>来源链追溯</h3>
+    <div id="provenance"><p class="muted">点击中间扣除曲线上的点或派生节点查看。</p></div>
+  </aside>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

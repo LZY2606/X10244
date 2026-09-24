@@ -1,0 +1,42 @@
+*{box-sizing:border-box}
+body{margin:0;font:13px/1.5 -apple-system,"PingFang SC",sans-serif;color:#1c2530;background:#eef1f5}
+header{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:#10233b;color:#dce8f5}
+.brand{font-weight:700;font-size:15px}
+.brand span{font-weight:400;opacity:.7;margin-left:8px;font-size:12px}
+.actions{display:flex;gap:8px;align-items:center}
+button,.filebtn{background:#2f6fed;border:0;color:#fff;padding:5px 12px;border-radius:4px;cursor:pointer;font-size:12px}
+button:hover{background:#1d58cf}
+.filebtn{display:inline-block}
+#head-label{font-size:12px;opacity:.85;margin-left:8px}
+main{display:grid;grid-template-columns:280px 1fr 360px;gap:10px;padding:10px;height:calc(100vh - 47px);overflow:hidden}
+aside,.panel{background:#fff;border-radius:6px;padding:10px;overflow:auto;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+h3{margin:2px 0 8px;font-size:13px}
+h3 small{font-weight:400;color:#778496;margin-left:8px}
+.center{display:flex;flex-direction:column;gap:10px;overflow:auto}
+.evt{padding:5px 8px;border-radius:4px;cursor:pointer;border-left:3px solid transparent;margin-bottom:3px;font-size:12px}
+.evt:hover{background:#eef3fb}
+.evt.cur{background:#e2ecfd;border-left-color:#2f6fed;font-weight:600}
+.evt .seq{color:#778496;margin-right:6px}
+.evt .kind{color:#2f6fed}
+.evt.past{opacity:.55}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:6px;font-size:12px;color:#44505f}
+#chart{width:100%;background:#fbfcfe;border:1px solid #e3e8ef;border-radius:4px}
+.chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;margin:2px 4px 2px 0}
+.chip.warn{background:#fff1d6;color:#92590a}
+.chip.err{background:#fde2e1;color:#a0241d}
+.chip.ok{background:#dcf2e2;color:#1d6b35}
+.chip.info{background:#e4ebf8;color:#2a4c8f}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{border-bottom:1px solid #eef1f5;padding:4px 6px;text-align:left}
+th{color:#778496;font-weight:600}
+.muted{color:#93a0b0}
+.banner{background:#e9f2ff;border:1px solid #b9d4fb;border-radius:6px;padding:8px 12px;font-size:12px}
+.hidden{display:none}
+.dec{border:1px solid #e3e8ef;border-radius:5px;padding:6px 8px;margin-bottom:6px}
+.dec.conflict{border-color:#e0a49f;background:#fdf4f3}
+.dec.resolved{opacity:.6}
+.row{display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap}
+input[type=number]{width:70px;padding:3px 5px;border:1px solid #cfd7e2;border-radius:3px}
+.srcnode{cursor:pointer}
+.srcnode:hover{color:#2f6fed}
+.pv{font-family:ui-monospace,monospace;font-size:11px}
