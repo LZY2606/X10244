@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>散射曲线台：SAXS 归一化、背景扣除与多区间模型证据</title>
+<style>
+:root{--bg:#0f172a;--panel:#111c33;--panel2:#16233f;--line:#263857;--text:#e5eefc;--muted:#91a4c2;--blue:#60a5fa;--cyan:#22d3ee;--amber:#fbbf24;--red:#fb7185;--green:#34d399;--purple:#a78bfa}*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0b1220,#101d36);color:var(--text);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{padding:18px 22px;border-bottom:1px solid var(--line);background:rgba(15,23,42,.92);position:sticky;top:0;z-index:5}h1{font-size:18px;margin:0 0 8px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.muted{color:var(--muted)}button,select{background:#1d2d4d;color:var(--text);border:1px solid #345079;border-radius:8px;padding:7px 10px;cursor:pointer}button:hover{border-color:var(--blue);background:#23395f}button.primary{background:#1d4ed8;border-color:#3b82f6}.layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:14px;padding:16px}.panel{background:rgba(17,28,51,.94);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}.panel h2{font-size:15px;margin:0 0 10px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.chart{width:100%;height:310px;background:#0b1426;border:1px solid var(--line);border-radius:10px}.chart text{fill:var(--muted);font-size:11px}.chart .axis{stroke:#607391;stroke-width:1}.chart path{fill:none;stroke-width:2}.raw-sample{stroke:var(--blue)}.raw-buffer{stroke:var(--purple)}.derived{stroke:var(--green)}.band{fill:rgba(52,211,153,.18);stroke:none}.residual path{stroke:var(--amber)}.point{cursor:pointer;stroke-width:3}.point:hover{stroke:#fff}.selected-point{stroke:var(--amber)!important}.tag{display:inline-flex;align-items:center;border:1px solid #355071;background:#14213a;border-radius:999px;padding:2px 8px;margin:2px;font-size:12px}.ok{color:var(--green)}.warn{color:var(--amber)}.err{color:var(--red)}.info{color:var(--cyan)}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid var(--line);padding:7px;text-align:left;vertical-align:top}th{color:#b9cbe6;font-weight:600}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}.scroll{max-height:330px;overflow:auto}.event{border:1px solid var(--line);border-radius:10px;padding:9px;margin:7px 0;background:#111d36}.event.active{border-color:var(--cyan);box-shadow:inset 0 0 0 1px var(--cyan)}.event button{padding:4px 7px;margin:4px 4px 0 0}.kv{display:grid;grid-template-columns:115px 1fr;gap:5px}.kv div:nth-child(odd){color:var(--muted)}pre{white-space:pre-wrap;word-break:break-word;background:#0b1426;border:1px solid var(--line);border-radius:8px;padding:9px;max-height:260px;overflow:auto}.candidate{border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;background:#101d35}.candidate.accepted{border-color:rgba(52,211,153,.65)}.candidate.rejected{opacity:.72;border-color:rgba(251,113,133,.45)}@media(max-width:1050px){.layout,.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>散射曲线台：SAXS 归一化、背景扣除与多区间模型证据</h1>
+  <div class="toolbar">
+    <label>分支 <select id="branch"></select></label>
+    <button id="refresh">刷新</button>
+    <button id="forkConflict">建立第二审阅者分支</button>
+    <button id="staleSave">从旧父版本并发保存</button>
+    <button id="reset">重置离线案例</button>
+    <button id="export">导出 JSON</button>
+    <a href="/api/export" target="_blank"><button type="button">打开导出</button></a>
+    <span id="head" class="muted"></span>
+  </div>
+</header>
+<div class="layout">
+<main>
+  <section class="panel">
+    <h2>九十秒短样例路径</h2>
+    <div class="muted">1. 查看原始曲线与保留的单位/来源；2. 点击绿色派生点，右侧追回样品与缓冲液两条源曲线；3. 查看 q 网格错位、无重叠、负强度、背景缩放误差和多候选残差；4. 在时间线回到旧事件，界面恢复旧版本；5. 建立第二审阅者分支或执行旧父版本保存，观察可解决冲突。</div>
+  </section>
+  <section class="panel"><h2>原曲线与扣背景结果（误差带可审阅）</h2><svg id="mainChart" class="chart"></svg></section>
+  <section class="panel"><h2>标准化残差与 q 重叠范围</h2><svg id="residualChart" class="chart residual"></svg></section>
+  <section class="panel"><h2>背景缩放与多候选残差检验</h2><div id="candidates" class="scroll"></div></section>
+  <section class="panel"><h2>Guinier / Porod 独立区间候选（不自动拼成单一模型）</h2><div id="intervals" class="scroll"></div></section>
+  <section class="grid2">
+    <div class="panel"><h2>机器可读判定事件</h2><div id="judgments" class="scroll"></div></div>
+    <div class="panel"><h2>依赖图传播</h2><div id="propagation" class="scroll"></div></div>
+  </section>
+</main>
+<aside>
+  <section class="panel"><h2>事件时间线 / 历史版本</h2><div id="events" class="scroll"></div></section>
+  <section class="panel"><h2>点来源链与稳定身份</h2><div id="inspector" class="scroll"><div class="muted">点击曲线上的派生点。每个点、曲线、候选、区间和事件都显示稳定 ID。</div></div></section>
+  <section class="panel"><h2>来源清单</h2><div id="sources"></div></section>
+</aside>
+</div>
+<script>
+let state=null, events=[], branches=[], selectedBranch='main', selectedEvent=null, selectedPoint=null, currentHead=null;
+const $=id=>document.getElementById(id);
+async function api(path, options={}){ const response=await fetch(path,{headers:{'Content-Type':'application/json'},...options}); if(response.status===204)return null; const text=await response.text(); const data=text?JSON.parse(text):null; if(!response.ok) throw new Error(data?.message||data?.error||text||response.status); return data; }
+function fmt(value,digits=4){ return value===null||value===undefined||!Number.isFinite(value) ? '—' : Number(value).toFixed(digits); }
+function esc(value){ return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function severityClass(severity){ return severity==='error'?'err':severity==='warning'?'warn':severity==='info'?'info':'ok'; }
+async function load(){
+  branches=await api('/api/branches');
+  const select=$('branch'); select.innerHTML=branches.map(([name,head])=>`<option value="${esc(name)}" ${name===selectedBranch?'selected':''}>${esc(name)} → ${esc(head||'empty')}</option>`).join('');
+  const query = selectedEvent ? `?branch=${encodeURIComponent(selectedBranch)}&at_event=${encodeURIComponent(selectedEvent)}` : `?branch=${encodeURIComponent(selectedBranch)}`;
+  events=await api(`/api/events?branch=${encodeURIComponent(selectedBranch)}`);
+  state=await api(`/api/state${query}`);
+  currentHead=events.length?events[events.length-1].event_id:null;
+  $('head').textContent=`当前头指针 ${currentHead||'empty'}${selectedEvent?` · 历史审阅 ${selectedEvent}`:''}`;
+  render();
+}
+function points(curve){ return (curve?.points||[]).filter(p=>Number.isFinite(p.q)&&p.intensity!==null&&p.intensity!==undefined); }
+function chart(svg, series, residual=false){
+  const width=svg.clientWidth||900,height=310,ml=58,mr=18,mt=18,mb=42;
+  const all=series.flatMap(s=>s.values); const qs=all.map(p=>p.q); const ys=all.flatMap(p=>residual?[p.residual??0,p.v]:[p.upper??p.v,p.lower??p.v]);
+  if(!qs.length){ svg.innerHTML='<text x="20" y="40">无有效重叠或派生点</text>'; return; }
+  const minX=Math.min(...qs),maxX=Math.max(...qs); const minY=Math.min(...ys,0),maxY=Math.max(...ys,0);
+  const x=q=>ml+(q-minX)/((maxX-minX)||1)*(width-ml-mr); const y=v=>mt+(maxY-v)/((maxY-minY)||1)*(height-mt-mb);
+  let html='';
+  for(let i=0;i<=4;i++){const gv=minY+(maxY-minY)*i/4, gx=minX+(maxX-minX)*i/4; html+=`<line class="axis" x1="${ml}" x2="${width-mr}" y1="${y(gv)}" y2="${y(gv)}" opacity=".25"/><text x="8" y="${y(gv)+4}">${fmt(gv,3)}</text><text x="${x(gx)-18}" y="${height-12}">${fmt(gx,3)}</text>`}
+  for(const s of series){
+    if(s.area && s.values.length){
+      const top=s.values.map((p,i)=>`${i?'L':'M'}${x(p.q)},${y(p.upper)}`).join('');
+      const bottom=s.values.slice().reverse().map(p=>`L${x(p.q)},${y(p.lower)}`).join('');
+      html+=`<path class="band" d="${top} ${bottom} Z"/>`;
+    }
+    html+=`<path class="${s.className||''}" d="${s.values.map((p,i)=>`${i?'L':'M'}${x(p.q)},${y(residual?(p.residual??0):p.v)}`).join('')}"/>`;
+    if(s.points!==false) html+=s.values.map(p=>`<circle class="point ${selectedPoint===p.id?'selected-point':''}" data-point="${esc(p.id)}" cx="${x(p.q)}" cy="${y(residual?(p.residual??0):p.v)}" r="4" fill="${s.color||'#60a5fa'}"/>`).join('');
+  }
+  html+=`<rect x="${ml}" y="${mt}" width="${width-ml-mr}" height="${height-mt-mb}" fill="transparent"/><text x="${width/2-70}" y="${height-1}">q (Å⁻¹)</text><text transform="translate(16,${height/2}) rotate(-90)">${residual?'(I_sub / σ)':'I（含单位，见来源）'}</text>`;
+  svg.innerHTML=html;
+  svg.querySelectorAll('.point').forEach(c=>c.onclick=()=>inspect(c.dataset.point));
+}
+
+function render(){
+  const sample=state.datasets['sample-a']; const bufferId=sample?.selected_buffer_id;
+  const sampleNorm=state.normalized_curves.find(c=>c.dataset_id==='sample-a');
+  const rawSample=points(sampleNorm).map(p=>({q:p.q,v:p.intensity,id:p.point_id}));
+  const backgrounds=state.background_candidates.filter(c=>c.buffer_id===bufferId);
+  const accepted=backgrounds.find(c=>c.status==='accepted')||backgrounds.find(c=>c.status.includes('selected_buffer'))||backgrounds[0];
+  const rawBuffers=state.normalized_curves.filter(c=>sample?.buffer_candidate_ids.includes(c.dataset_id)).map((c,i)=>({className:i===0?'raw-buffer':'raw-sample',color:['#a78bfa','#60a5fa'][i%2],values:points(c).map(p=>({q:p.q,v:p.intensity,id:p.point_id})),points:false}));
+  const derived=(accepted?.points||[]).filter(p=>p.valid).map(p=>({q:p.q,v:p.value,lower:p.value-p.sigma,upper:p.value+p.sigma,id:p.point_id,residual:p.residual}));
+  chart($('mainChart'), [{className:'raw-sample',color:'#60a5fa',values:rawSample}, ...rawBuffers, {className:'derived',color:'#34d399',values:derived,area:true}]);
+  chart($('residualChart'), accepted?[{className:'',color:'#fbbf24',values:accepted.points.filter(p=>p.valid).map(p=>({q:p.q,v:0,residual:p.residual,id:p.point_id}))}]:[] ,true);
+  renderCandidates(); renderIntervals(); renderEvents(); renderInspector(); renderSources(); renderJudgments(); renderPropagation();
+}
+function renderCandidates(){
+  $('candidates').innerHTML=state.background_candidates.map(c=>`<div class="candidate ${c.status}">
+    <div><b>${esc(c.label)}</b> <span class="tag ${c.status.includes('invalid')?'err':'ok'}">${esc(c.status)}</span></div>
+    <div class="muted mono">${esc(c.candidate_id)} · ${esc(c.version)}</div>
+    <div class="kv"><div>缓冲液</div><div class="mono">${esc(c.buffer_id)}</div><div>q 网格</div><div>${esc(c.grid_relation)}；重叠 ${fmt(c.q_min,3)}–${fmt(c.q_max,3)} Å⁻¹</div><div>α / σα</div><div>${fmt(c.alpha,4)} / ${fmt(c.alpha_sigma,4)}</div><div>χ² / RSS</div><div>${fmt(c.chi_square,4)} / ${fmt(c.rss,4)}</div></div>
+    <div>${c.diagnostics.map(d=>`<span class="tag ${severityClass(d.severity)}">${esc(d.code)}</span>`).join('')}</div>
+    <div><button onclick="decide('${esc(c.candidate_id)}','accepted')">接受</button><button onclick="decide('${esc(c.candidate_id)}','rejected')">否定</button><button onclick="inspectCandidate('${esc(c.candidate_id)}')">查看来源</button></div>
+  </div>`).join('');
+}
+function renderIntervals(){
+  $('intervals').innerHTML=state.interval_candidates.map(c=>`<div class="candidate ${c.status}">
+    <b>${esc(c.kind)}</b> <span class="tag">${esc(c.status)}</span>
+    <div class="muted mono">${esc(c.interval_id)}</div>
+    <div>q=${fmt(c.q_min,3)}–${fmt(c.q_max,3)}；R²=${fmt(c.r_squared,4)}；slope=${fmt(c.slope,4)}</div>
+    <div>${c.diagnostics.map(d=>`<span class="tag ${severityClass(d.severity)}">${esc(d.code)}</span>`).join('')}</div>
+    <div><button onclick="decide('${esc(c.interval_id)}','accepted')">接受该区间</button><button onclick="decide('${esc(c.interval_id)}','rejected')">否定该区间</button></div>
+  </div>`).join('');
+}
+function renderEvents(){
+  $('events').innerHTML=events.map(e=>{const kind=Object.keys(e.kind)[0]; const payload=e.kind[kind]; return `<div class="event ${selectedEvent===e.event_id?'active':''}">
+    <b>${esc(e.event_id)}</b> <span class="tag">${esc(kind)}</span><div class="muted">${esc(e.branch)} · ${esc(e.actor)} · parent ${esc(e.parent_event_id||'—')}</div>
+    <div>${esc(payload.reason||payload.label||payload.name||payload.dataset_id||payload.sample_id||'')}</div>
+    <button onclick="viewAt('${esc(e.event_id)}')">回到此事件</button>${e.event_id===currentHead?'<span class="tag ok">当前指针</span>':''}
+  </div>`}).join('') + (selectedEvent?'<button class="primary" onclick="viewAt(null)">返回当前版本</button>':'');
+}
+function renderJudgments(){
+  $('judgments').innerHTML=state.judgments.map(j=>`<div class="event"><span class="tag ${severityClass(j.severity)}">${esc(j.code)}</span><div class="mono muted">${esc(j.judgment_id)}</div><div>${esc(j.message)}</div><pre>${esc(JSON.stringify(j.evidence,null,2))}</pre></div>`).join('');
+}
+function renderPropagation(){
+  $('propagation').innerHTML=state.propagation.map(p=>`<div class="event"><b>${esc(p.event_id)}</b><div>${esc(p.rationale)}</div>
+    <div><span class="tag err">失效 ${p.invalidated_nodes.length}</span><span class="tag warn">重算 ${p.changed_nodes.length}</span><span class="tag ok">复用 ${p.reused_nodes.length}</span></div>
+    <details><summary>节点身份</summary><pre>${esc(JSON.stringify({changed:p.changed_nodes,reused:p.reused_nodes,invalidated:p.invalidated_nodes},null,2))}</pre></details></div>`).join('');
+}
+function renderSources(){
+  $('sources').innerHTML=Object.values(state.datasets).map(d=>`<div class="event"><b>${esc(d.label)}</b><div class="mono muted">${esc(d.dataset_id)}</div>
+    <div class="kv"><div>原始文件</div><div>${esc(d.source_file)}</div><div>遮罩</div><div>${esc(d.mask_source)}</div><div>曝光</div><div>${esc(d.exposure.raw)} ${esc(d.exposure.unit)} σ=${esc(d.exposure.sigma_raw)}</div><div>厚度</div><div>${esc(d.thickness.raw)} ${esc(d.thickness.unit)}</div><div>透射率</div><div>${esc(d.transmission.raw)} ${esc(d.transmission.unit)}</div><div>响应</div><div>${esc(d.instrument_response?.response_id||'—')}</div><div>缓冲液</div><div>${d.buffer_candidate_ids.map(esc).join(', ')}</div></div>
+  </div>`).join('');
+}
+function inspect(id){ selectedPoint=id; renderInspector(); render(); }
+function pointSource(pointId){
+  for(const c of state.normalized_curves) for(const p of c.points) if(p.point_id===pointId) return {curve:c,point:p,kind:'normalized'};
+  for(const c of state.background_candidates) for(const p of c.points) if(p.point_id===pointId) return {candidate:c,point:p,kind:'background'};
+  return null;
+}
+function renderInspector(){
+  if(!selectedPoint) return;
+  const found=pointSource(selectedPoint); if(!found){ $('inspector').innerHTML='<div class="muted">未找到点身份。</div>'; return; }
+  if(found.kind==='background'){ const p=found.point,c=found.candidate; const samplePoint=state.normalized_curves.find(x=>x.dataset_id===c.sample_id)?.points.find(x=>x.point_id===p.sample_point_id); const sampleRaw=state.datasets[c.sample_id]?.points.find(x=>x.point_id===samplePoint?.source_point_id); const bufferCurve=state.normalized_curves.find(x=>x.dataset_id===c.buffer_id); const bufferDataset=state.datasets[c.buffer_id];
+    $('inspector').innerHTML=`<div class="event"><b>派生点来源链</b><div class="mono">${esc(p.point_id)} · ${esc(c.version)}</div>
+    <div class="kv"><div>q</div><div>${fmt(p.q,5)} Å⁻¹</div><div>样品点</div><div class="mono">${esc(p.sample_point_id)}</div><div>样品原始</div><div class="mono">${esc(sampleRaw?.point_id)} I=${esc(sampleRaw?.intensity.raw)} ${esc(sampleRaw?.intensity.unit)}</div><div>缓冲液</div><div>${esc(bufferDataset?.label)} · ${esc(c.buffer_id)}</div><div>插值来源</div><div class="mono">${esc(p.buffer_point_id)}</div><div>插值</div><div>${p.interpolated?'是，只在重叠范围内':'否；q 网格相同'}</div><div>α·Ib</div><div>${fmt(p.buffer_intensity_on_sample_grid)}</div><div>值</div><div class="${p.value<0?'err':''}">${fmt(p.value)}</div><div>σ²</div><div>归一化 ${fmt(p.normalized_variance)} + 缩放 ${fmt(p.background_scale_variance)}</div></div>
+    <pre>${esc(JSON.stringify({derived:p,sample:samplePoint,buffer_curve:bufferCurve?.artifact_id,buffer_version:bufferCurve?.version},null,2))}</pre></div>`;
+  } else { const p=found.point,c=found.curve; const raw=state.datasets[c.dataset_id]?.points.find(x=>x.point_id===p.source_point_id);
+    $('inspector').innerHTML=`<div class="event"><b>归一化点来源链</b><div class="mono">${esc(p.point_id)}</div><div class="kv"><div>原始点</div><div class="mono">${esc(raw?.point_id)}</div><div>原始 q</div><div>${esc(raw?.q.raw)} ${esc(raw?.q.unit)}</div><div>原始 I</div><div>${esc(raw?.intensity.raw)} ${esc(raw?.intensity.unit)}</div><div>归一化 I</div><div>${fmt(p.intensity)} ${esc(p.intensity_unit)}</div><div>σ</div><div>${fmt(p.sigma)}</div></div><pre>${esc(JSON.stringify({point:p,raw},null,2))}</pre></div>`;
+  }
+}
+function inspectCandidate(id){ const c=state.background_candidates.find(x=>x.candidate_id===id); const first=c?.points[0]; if(first) inspect(first.point_id); }
+async function decide(targetId, decision){
+  if(!currentHead){ alert('当前分支没有父事件'); return; }
+  try{ await api('/api/events/publish',{method:'POST',body:JSON.stringify({branch:selectedBranch,parent_event_id:selectedEvent||currentHead,actor:'web-reviewer',kind:{type:'candidate_decision',candidate_id:targetId,decision,actor:'web-reviewer',reason:'Web 复核界面做出的新决定；旧候选与事件仍保留。'}})}); selectedEvent=null; await load(); }
+  catch(error){ alert('并发或历史版本冲突：'+error.message+'\n请先创建分支，再从旧状态继续。'); }
+}
+async function viewAt(id){ selectedPoint=null; selectedEvent=id; await load(); }
+$('refresh').onclick=load; $('branch').onchange=e=>{selectedBranch=e.target.value;selectedEvent=null;selectedPoint=null;load()};
+$('reset').onclick=async()=>{await api('/api/demo/reset',{method:'POST'});selectedBranch='main';selectedEvent=null;await load()};
+$('export').onclick=async()=>{const b=await api('/api/export'); const blob=new Blob([JSON.stringify(b,null,2)],{type:'application/json'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='saxs-station-export.json';a.click()};
+$('forkConflict').onclick=async()=>{await api('/api/demo/fork-conflict',{method:'POST'});await load()};
+$('staleSave').onclick=async()=>{ try{await decide('background:sample-a.buffer-b.fixed_0p95','accepted')}catch(e){}};
+load();
+</script>
+</body>
+</html>

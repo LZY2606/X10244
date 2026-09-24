@@ -1,0 +1,1500 @@
+{
+  "format": "saxs-station-export/1",
+  "schema_version": 2,
+  "events": [
+    {
+      "event_id": "evt-0001",
+      "parent_event_id": null,
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "project_created",
+        "project_id": "case-saxs-station",
+        "name": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+        "description": "离线小角散射审阅案例"
+      }
+    },
+    {
+      "event_id": "evt-0002",
+      "parent_event_id": "evt-0001",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "dataset_imported",
+        "dataset": {
+          "dataset_id": "sample-a",
+          "role": "sample",
+          "label": "Lysozyme SAXS A",
+          "source_file": "fixtures/lysozyme_2d_integrated_a.tsv",
+          "points": [
+            {
+              "point_id": "sample-a.pt-00",
+              "q": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "8.0515",
+                "value": 8.051538964833265,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1730",
+                "value": 0.1730307792966653,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-01",
+              "q": {
+                "raw": "0.0220",
+                "value": 0.022,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "7.9597",
+                "value": 7.959657626791278,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1712",
+                "value": 0.1711931525358256,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-02",
+              "q": {
+                "raw": "0.0340",
+                "value": 0.034,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "7.8067",
+                "value": 7.806691966238868,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1681",
+                "value": 0.16813383932477738,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-03",
+              "q": {
+                "raw": "0.0460",
+                "value": 0.046000000000000006,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "7.5960",
+                "value": 7.596044016802378,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1639",
+                "value": 0.16392088033604757,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-04",
+              "q": {
+                "raw": "0.0580",
+                "value": 0.058,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "7.3324",
+                "value": 7.332438321959183,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1586",
+                "value": 0.15864876643918366,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-05",
+              "q": {
+                "raw": "0.0700",
+                "value": 0.06999999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "7.0217",
+                "value": 7.021733218390615,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1524",
+                "value": 0.1524346643678123,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-06",
+              "q": {
+                "raw": "0.0820",
+                "value": 0.082,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "6.6707",
+                "value": 6.670693918270063,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1454",
+                "value": 0.14541387836540126,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-07",
+              "q": {
+                "raw": "0.0940",
+                "value": 0.094,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "6.2867",
+                "value": 6.286739247448211,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1377",
+                "value": 0.13773478494896424,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-08",
+              "q": {
+                "raw": "0.1060",
+                "value": 0.106,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "5.8777",
+                "value": 5.877674919659136,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1296",
+                "value": 0.12955349839318273,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-09",
+              "q": {
+                "raw": "0.1180",
+                "value": 0.118,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "5.4514",
+                "value": 5.4514263962864025,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.1210",
+                "value": 0.12102852792572805,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "sample-a.pt-10",
+              "q": {
+                "raw": "0.1300",
+                "value": 0.13,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "N/A",
+                "value": null,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "N/A",
+                "value": null,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": [
+                {
+                  "code": "RAW_UNCONVERTIBLE",
+                  "severity": "warning",
+                  "message": "导入时保留无法转换的强度和误差原位置。",
+                  "related": [
+                    "sample-a.pt-10"
+                  ]
+                }
+              ]
+            }
+          ],
+          "exposure": {
+            "raw": "120",
+            "value": 120.0,
+            "unit": "s",
+            "sigma": 0.5,
+            "sigma_raw": "0.500",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "thickness": {
+            "raw": "0.100",
+            "value": 0.1,
+            "unit": "cm",
+            "sigma": 0.001,
+            "sigma_raw": "0.001",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "transmission": {
+            "raw": "0.820",
+            "value": 0.82,
+            "unit": "dimensionless",
+            "sigma": 0.01,
+            "sigma_raw": "0.010",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "instrument_response": {
+            "response_id": "detector-flat-field-v1",
+            "scale": {
+              "raw": "1.000",
+              "value": 1.0,
+              "unit": "detector-count/count",
+              "sigma": 0.015,
+              "sigma_raw": "0.015",
+              "coordinate_basis": "2D-integrated lab q axis"
+            },
+            "mask_source": "embedded response manifest",
+            "raw_record": {
+              "source": "detector-calibration/saxs_station.poni",
+              "q_basis": "1/angstrom",
+              "mask_policy": "beamstop and intermodule gaps retained",
+              "raw_manifest": true
+            }
+          },
+          "mask_source": "fixtures/mask/beamstop_and_detector_gaps_v1.msk",
+          "buffer_candidate_ids": [
+            "buffer-a"
+          ],
+          "selected_buffer_id": "buffer-a"
+        }
+      }
+    },
+    {
+      "event_id": "evt-0003",
+      "parent_event_id": "evt-0002",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "dataset_imported",
+        "dataset": {
+          "dataset_id": "buffer-a",
+          "role": "buffer",
+          "label": "Matching buffer A",
+          "source_file": "fixtures/buffer_a_2d_integrated.tsv",
+          "points": [
+            {
+              "point_id": "buffer-a.pt-00",
+              "q": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2778",
+                "value": 2.2777738537704257,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0649",
+                "value": 0.06494434634426065,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-01",
+              "q": {
+                "raw": "0.0210",
+                "value": 0.020999999999999998,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2749",
+                "value": 2.274882275511621,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0649",
+                "value": 0.06487205688779052,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-02",
+              "q": {
+                "raw": "0.0320",
+                "value": 0.032,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2715",
+                "value": 2.2715085683858223,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0648",
+                "value": 0.06478771420964556,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-03",
+              "q": {
+                "raw": "0.0430",
+                "value": 0.043000000000000003,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2676",
+                "value": 2.267636769855711,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0647",
+                "value": 0.06469091924639278,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-04",
+              "q": {
+                "raw": "0.0540",
+                "value": 0.054,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2633",
+                "value": 2.2632535077133555,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0646",
+                "value": 0.06458133769283389,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-05",
+              "q": {
+                "raw": "0.0650",
+                "value": 0.06499999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2583",
+                "value": 2.2583477314095743,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0645",
+                "value": 0.06445869328523937,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-06",
+              "q": {
+                "raw": "0.0760",
+                "value": 0.076,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2529",
+                "value": 2.252910481207776,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0643",
+                "value": 0.06432276203019441,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-07",
+              "q": {
+                "raw": "0.0870",
+                "value": 0.087,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2469",
+                "value": 2.2469346890300503,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0642",
+                "value": 0.06417336722575126,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-08",
+              "q": {
+                "raw": "0.0980",
+                "value": 0.09799999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2404",
+                "value": 2.2404150059212125,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0640",
+                "value": 0.06401037514803032,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-a.pt-09",
+              "q": {
+                "raw": "0.1090",
+                "value": 0.10899999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.2333",
+                "value": 2.233347651919196,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0638",
+                "value": 0.06383369129797992,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            }
+          ],
+          "exposure": {
+            "raw": "120",
+            "value": 120.0,
+            "unit": "s",
+            "sigma": 0.5,
+            "sigma_raw": "0.500",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "thickness": {
+            "raw": "0.100",
+            "value": 0.1,
+            "unit": "cm",
+            "sigma": 0.001,
+            "sigma_raw": "0.001",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "transmission": {
+            "raw": "0.880",
+            "value": 0.88,
+            "unit": "dimensionless",
+            "sigma": 0.011,
+            "sigma_raw": "0.011",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "instrument_response": {
+            "response_id": "detector-flat-field-v1",
+            "scale": {
+              "raw": "1.000",
+              "value": 1.0,
+              "unit": "detector-count/count",
+              "sigma": 0.015,
+              "sigma_raw": "0.015",
+              "coordinate_basis": "2D-integrated lab q axis"
+            },
+            "mask_source": "embedded response manifest",
+            "raw_record": {
+              "source": "detector-calibration/saxs_station.poni",
+              "q_basis": "1/angstrom",
+              "mask_policy": "beamstop and intermodule gaps retained",
+              "raw_manifest": true
+            }
+          },
+          "mask_source": "fixtures/mask/beamstop_and_detector_gaps_v1.msk",
+          "buffer_candidate_ids": [],
+          "selected_buffer_id": null
+        }
+      }
+    },
+    {
+      "event_id": "evt-0004",
+      "parent_event_id": "evt-0003",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "parameter_revision",
+        "dataset_id": "sample-a",
+        "exposure": {
+          "raw": "118.4",
+          "value": 118.4,
+          "unit": "s",
+          "sigma": 0.8,
+          "sigma_raw": "0.800",
+          "coordinate_basis": "2D-integrated lab q axis"
+        },
+        "thickness": null,
+        "transmission": null,
+        "instrument_response": null,
+        "reason": "复核快门日志后修订曝光；归一化版本应整体重算。"
+      }
+    },
+    {
+      "event_id": "evt-0005",
+      "parent_event_id": "evt-0004",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "dataset_imported",
+        "dataset": {
+          "dataset_id": "buffer-no-overlap",
+          "role": "buffer",
+          "label": "No-overlap high-q buffer",
+          "source_file": "fixtures/buffer_high_q_no_overlap.tsv",
+          "points": [
+            {
+              "point_id": "buffer-no-overlap.pt-00",
+              "q": {
+                "raw": "0.6000",
+                "value": 0.6,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "1.0405",
+                "value": 1.0405368408421412,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-01",
+              "q": {
+                "raw": "0.6300",
+                "value": 0.63,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.9954",
+                "value": 0.9953740851050631,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-02",
+              "q": {
+                "raw": "0.6600",
+                "value": 0.6599999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.9501",
+                "value": 0.950128623315378,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-03",
+              "q": {
+                "raw": "0.6900",
+                "value": 0.69,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.9050",
+                "value": 0.9049925959524948,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-04",
+              "q": {
+                "raw": "0.7200",
+                "value": 0.72,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.8601",
+                "value": 0.8601489404237971,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-05",
+              "q": {
+                "raw": "0.7500",
+                "value": 0.75,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.8158",
+                "value": 0.8157702152787174,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-06",
+              "q": {
+                "raw": "0.7800",
+                "value": 0.78,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.7720",
+                "value": 0.7720176044320726,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-no-overlap.pt-07",
+              "q": {
+                "raw": "0.8100",
+                "value": 0.8099999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.7290",
+                "value": 0.7290401021288354,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            }
+          ],
+          "exposure": {
+            "raw": "120",
+            "value": 120.0,
+            "unit": "s",
+            "sigma": 0.5,
+            "sigma_raw": "0.500",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "thickness": {
+            "raw": "0.100",
+            "value": 0.1,
+            "unit": "cm",
+            "sigma": 0.001,
+            "sigma_raw": "0.001",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "transmission": {
+            "raw": "0.880",
+            "value": 0.88,
+            "unit": "dimensionless",
+            "sigma": 0.011,
+            "sigma_raw": "0.011",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "instrument_response": {
+            "response_id": "detector-flat-field-v1",
+            "scale": {
+              "raw": "1.000",
+              "value": 1.0,
+              "unit": "detector-count/count",
+              "sigma": 0.015,
+              "sigma_raw": "0.015",
+              "coordinate_basis": "2D-integrated lab q axis"
+            },
+            "mask_source": "embedded response manifest",
+            "raw_record": {
+              "source": "detector-calibration/saxs_station.poni",
+              "q_basis": "1/angstrom",
+              "mask_policy": "beamstop and intermodule gaps retained",
+              "raw_manifest": true
+            }
+          },
+          "mask_source": "fixtures/mask/beamstop_and_detector_gaps_v1.msk",
+          "buffer_candidate_ids": [],
+          "selected_buffer_id": null
+        }
+      }
+    },
+    {
+      "event_id": "evt-0006",
+      "parent_event_id": "evt-0005",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "buffer_selection_changed",
+        "sample_id": "sample-a",
+        "action": "add",
+        "buffer_id": "buffer-no-overlap",
+        "reason": "导入故意无重叠缓冲液，系统必须拒绝相减并保留候选诊断。"
+      }
+    },
+    {
+      "event_id": "evt-0007",
+      "parent_event_id": "evt-0006",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "point_replaced",
+        "dataset_id": "buffer-a",
+        "point_id": "buffer-a.pt-00",
+        "point": {
+          "point_id": "buffer-a.pt-00",
+          "q": {
+            "raw": "0.0100",
+            "value": 0.01,
+            "unit": "1/angstrom",
+            "sigma": null,
+            "sigma_raw": null,
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "intensity": {
+            "raw": "2.7200",
+            "value": 2.72,
+            "unit": "counts",
+            "sigma": null,
+            "sigma_raw": null,
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "sigma": {
+            "raw": "0.0350",
+            "value": 0.035,
+            "unit": "counts",
+            "sigma": null,
+            "sigma_raw": null,
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "diagnostics": []
+        },
+        "reason": "只替换一个缓冲液点；仅依赖该源点的局部结果需要重算。"
+      }
+    },
+    {
+      "event_id": "evt-0008",
+      "parent_event_id": "evt-0007",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "dataset_imported",
+        "dataset": {
+          "dataset_id": "buffer-b",
+          "role": "buffer",
+          "label": "Matching buffer B (revised mask)",
+          "source_file": "fixtures/buffer_b_2d_integrated.tsv",
+          "points": [
+            {
+              "point_id": "buffer-b.pt-00",
+              "q": {
+                "raw": "0.0100",
+                "value": 0.01,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0768",
+                "value": 2.076758953404318,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0703",
+                "value": 0.07030276860212954,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-01",
+              "q": {
+                "raw": "0.0220",
+                "value": 0.022,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0724",
+                "value": 2.072429700418136,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0702",
+                "value": 0.07017289101254408,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-02",
+              "q": {
+                "raw": "0.0340",
+                "value": 0.034,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0676",
+                "value": 2.0675984225888304,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0700",
+                "value": 0.0700279526776649,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-03",
+              "q": {
+                "raw": "0.0460",
+                "value": 0.046000000000000006,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0622",
+                "value": 2.062245659815728,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0699",
+                "value": 0.06986736979447183,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-04",
+              "q": {
+                "raw": "0.0580",
+                "value": 0.058,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0564",
+                "value": 2.0563555166491527,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0697",
+                "value": 0.06969066549947459,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-05",
+              "q": {
+                "raw": "0.0700",
+                "value": 0.06999999999999999,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0499",
+                "value": 2.049915252194685,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0695",
+                "value": 0.06949745756584055,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-06",
+              "q": {
+                "raw": "0.0820",
+                "value": 0.082,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0429",
+                "value": 2.0429149321665507,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0693",
+                "value": 0.06928744796499653,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-07",
+              "q": {
+                "raw": "0.0940",
+                "value": 0.094,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "2.0353",
+                "value": 2.0353471322471175,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0691",
+                "value": 0.06906041396741353,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-08",
+              "q": {
+                "raw": "0.1060",
+                "value": 0.106,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.0180",
+                "value": 0.018,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0040",
+                "value": 0.004,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            },
+            {
+              "point_id": "buffer-b.pt-09",
+              "q": {
+                "raw": "0.1180",
+                "value": 0.118,
+                "unit": "1/angstrom",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "intensity": {
+                "raw": "0.0180",
+                "value": 0.018,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "sigma": {
+                "raw": "0.0040",
+                "value": 0.004,
+                "unit": "counts",
+                "sigma": null,
+                "sigma_raw": null,
+                "coordinate_basis": "2D-integrated lab q axis"
+              },
+              "diagnostics": []
+            }
+          ],
+          "exposure": {
+            "raw": "120",
+            "value": 120.0,
+            "unit": "s",
+            "sigma": 0.5,
+            "sigma_raw": "0.500",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "thickness": {
+            "raw": "0.100",
+            "value": 0.1,
+            "unit": "cm",
+            "sigma": 0.001,
+            "sigma_raw": "0.001",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "transmission": {
+            "raw": "0.880",
+            "value": 0.88,
+            "unit": "dimensionless",
+            "sigma": 0.011,
+            "sigma_raw": "0.011",
+            "coordinate_basis": "2D-integrated lab q axis"
+          },
+          "instrument_response": {
+            "response_id": "detector-flat-field-v2",
+            "scale": {
+              "raw": "1.000",
+              "value": 1.0,
+              "unit": "detector-count/count",
+              "sigma": 0.02,
+              "sigma_raw": "0.020",
+              "coordinate_basis": "2D-integrated lab q axis"
+            },
+            "mask_source": "embedded response manifest",
+            "raw_record": {
+              "source": "detector-calibration/saxs_station.poni",
+              "q_basis": "1/angstrom",
+              "mask_policy": "beamstop and intermodule gaps retained",
+              "raw_manifest": true
+            }
+          },
+          "mask_source": "fixtures/mask/beamstop_and_detector_gaps_v2.msk",
+          "buffer_candidate_ids": [],
+          "selected_buffer_id": null
+        }
+      }
+    },
+    {
+      "event_id": "evt-0009",
+      "parent_event_id": "evt-0008",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "buffer_selection_changed",
+        "sample_id": "sample-a",
+        "action": "switch",
+        "buffer_id": "buffer-b",
+        "reason": "切换到修订遮罩后的缓冲液版本；旧缓冲液候选仍保留。"
+      }
+    },
+    {
+      "event_id": "evt-0010",
+      "parent_event_id": "evt-0009",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "candidate_decision",
+        "candidate_id": "background:sample-a.buffer-b.residual_fit",
+        "decision": "accepted",
+        "actor": "reviewer-rina",
+        "reason": "多候选残差比较后采用拟合缩放，但固定缩放候选继续保留。"
+      }
+    },
+    {
+      "event_id": "evt-0011",
+      "parent_event_id": "evt-0010",
+      "branch": "main",
+      "actor": "offline-case",
+      "created_at": "2026-09-24T00:00:00Z",
+      "kind": {
+        "type": "candidate_decision",
+        "candidate_id": "interval:background:sample-a.buffer-b.residual_fit.guinier.4.0",
+        "decision": "accepted",
+        "actor": "reviewer-rina",
+        "reason": "接受一个 Guinier 区间证据，不自动与 Porod 拼接。"
+      }
+    }
+  ],
+  "branches": [
+    [
+      "main",
+      "evt-0011"
+    ]
+  ]
+}
