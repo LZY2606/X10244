@@ -1,0 +1,25 @@
+[package]
+name = "saxs-bench"
+version = "0.1.0"
+edition = "2021"
+description = "SAXS normalization, buffer subtraction and multi-interval model evidence bench"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+rust-embed = "8"
+mime_guess = "2"
+sha2 = "0.10"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+tempfile = "3"
+
+[[bin]]
+name = "saxs-bench"
+path = "src/main.rs"
