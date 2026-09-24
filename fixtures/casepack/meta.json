@@ -1,0 +1,11 @@
+{
+ "type": "meta",
+ "exposure_s": 2.0,
+ "exposure_s_err": 0.02,
+ "thickness_mm": 1.5,
+ "thickness_mm_err": 0.02,
+ "transmission": 0.42,
+ "transmission_err": 0.004,
+ "recorded_by": "beamline-bl19u2",
+ "raw_log": "exp-log-2026-0412.json"
+}

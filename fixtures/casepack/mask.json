@@ -1,0 +1,16 @@
+{
+ "type": "mask",
+ "source": "beamstop-mask-v3.png",
+ "excluded_ranges": [
+  [
+   0.0,
+   0.009
+  ],
+  [
+   0.48,
+   0.6
+  ]
+ ],
+ "q_unit": "1/A",
+ "note": "束流阻挡器与坏点遮罩来源记录"
+}

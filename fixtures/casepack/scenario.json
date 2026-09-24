@@ -1,0 +1,45 @@
+{
+ "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+ "steps": [
+  {
+   "op": "import_baseline",
+   "note": "导入基线：原始 q/I/误差、曝光、厚度、透射率、缓冲液候选、仪器响应、遮罩来源全部保留"
+  },
+  {
+   "op": "derive_all",
+   "note": "生成归一化与背景扣除链（buffer-v1）"
+  },
+  {
+   "op": "adjust_param",
+   "node": "der.subtracted",
+   "param": "scale_mode",
+   "value": "fixed_1.0",
+   "note": "参数修订：背景缩放改为固定 1.0，比较缩放不确定度对误差带的影响"
+  },
+  {
+   "op": "switch_buffer",
+   "buffer": "buffer-v2",
+   "note": "源数据改动：缓冲液版本切换 v1→v2，仅影响减法及其下游（样品归一化仍有效）"
+  },
+  {
+   "op": "human_decision",
+   "user": "reviewer-a",
+   "decision": "accept",
+   "candidate": "cand-scale-fit",
+   "note": "审阅者 A 采纳拟合缩放候选"
+  },
+  {
+   "op": "human_decision",
+   "user": "reviewer-b",
+   "decision": "accept",
+   "candidate": "cand-scale-1",
+   "expect": "conflict",
+   "note": "审阅者 B 基于同一版本采纳固定缩放候选 → 冲突"
+  },
+  {
+   "op": "resolve_conflict",
+   "keep": "reviewer-b",
+   "note": "冲突解决：保留 B 分支为当前，A 分支作为未采纳候选保留"
+  }
+ ]
+}
