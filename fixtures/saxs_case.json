@@ -1,0 +1,787 @@
+{
+  "schema": "saxs-case/v1",
+  "case": {
+    "case_id": "case/saxs-bench-001",
+    "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+    "curves": [
+      {
+        "id": "sample",
+        "role": "sample",
+        "label": "lysozyme sample",
+        "q_unit": "1/A",
+        "intensity_unit": "count",
+        "points": [
+          {
+            "index": 0,
+            "q": 0.01,
+            "i": 78.440987,
+            "sigma": 1.961025,
+            "masked": true,
+            "mask_sources": [
+              "mask/beamstop"
+            ]
+          },
+          {
+            "index": 1,
+            "q": 0.012,
+            "i": 78.005403,
+            "sigma": 1.950135,
+            "masked": true,
+            "mask_sources": [
+              "mask/beamstop"
+            ]
+          },
+          {
+            "index": 2,
+            "q": 0.014,
+            "i": 77.464762,
+            "sigma": 1.936619,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 3,
+            "q": 0.016,
+            "i": 76.821142,
+            "sigma": 1.920529,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 4,
+            "q": 0.018,
+            "i": 76.077088,
+            "sigma": 1.901927,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 5,
+            "q": 0.02,
+            "i": 75.235598,
+            "sigma": 1.88089,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 6,
+            "q": 0.022,
+            "i": 74.300108,
+            "sigma": 1.857503,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 7,
+            "q": 0.024,
+            "i": 73.274466,
+            "sigma": 1.831862,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 8,
+            "q": 0.026,
+            "i": 72.16291,
+            "sigma": 1.804073,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 9,
+            "q": 0.028,
+            "i": 70.970036,
+            "sigma": 1.774251,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 10,
+            "q": 0.03,
+            "i": 69.70077,
+            "sigma": 1.742519,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 11,
+            "q": 0.032,
+            "i": 68.36033,
+            "sigma": 1.709008,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 12,
+            "q": 0.034,
+            "i": 66.954192,
+            "sigma": 1.673855,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 13,
+            "q": 0.036,
+            "i": 65.488048,
+            "sigma": 1.637201,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 14,
+            "q": 0.038,
+            "i": 63.967769,
+            "sigma": 1.599194,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 15,
+            "q": 0.04,
+            "i": 62.399362,
+            "sigma": 1.559984,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 16,
+            "q": 0.042,
+            "i": 60.788927,
+            "sigma": 1.519723,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 17,
+            "q": 0.044,
+            "i": 59.142612,
+            "sigma": 1.478565,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 18,
+            "q": 0.046,
+            "i": 57.466578,
+            "sigma": 1.436664,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 19,
+            "q": 0.048,
+            "i": 55.766948,
+            "sigma": 1.394174,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 20,
+            "q": 0.05,
+            "i": 54.049773,
+            "sigma": 1.351244,
+            "masked": false,
+            "mask_sources": []
+          }
+        ],
+        "exposure": {
+          "value": 60,
+          "sigma": 0.2,
+          "unit": "s",
+          "raw_text": "60 s ± 0.2"
+        },
+        "thickness": {
+          "value": 0.15,
+          "sigma": 0.002,
+          "unit": "cm",
+          "raw_text": "0.15 cm ± 0.002"
+        },
+        "transmission": {
+          "value": 0.72,
+          "sigma": 0.006,
+          "unit": "dimensionless",
+          "raw_text": "0.72 ± 0.006"
+        },
+        "source_file": "fixtures/raw/sample_lysozyme_R1.integrated",
+        "raw_representation": "two-column integrated output with q, I and dI columns; original text retained in import manifest"
+      },
+      {
+        "id": "buffer-a",
+        "role": "buffer",
+        "label": "buffer batch A",
+        "q_unit": "1/A",
+        "intensity_unit": "count",
+        "points": [
+          {
+            "index": 0,
+            "q": 0.01,
+            "i": 8.117554,
+            "sigma": 0.202939,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 1,
+            "q": 0.012,
+            "i": 8.08501,
+            "sigma": 0.202125,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 2,
+            "q": 0.014,
+            "i": 8.044712,
+            "sigma": 0.201118,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 3,
+            "q": 0.016,
+            "i": 7.99698,
+            "sigma": 0.199925,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 4,
+            "q": 0.018,
+            "i": 7.94217,
+            "sigma": 0.198554,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 5,
+            "q": 0.02,
+            "i": 7.880668,
+            "sigma": 0.197017,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 6,
+            "q": 0.022,
+            "i": 7.812881,
+            "sigma": 0.195322,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 7,
+            "q": 0.024,
+            "i": 7.739232,
+            "sigma": 0.193481,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 8,
+            "q": 0.026,
+            "i": 7.660149,
+            "sigma": 0.191504,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 9,
+            "q": 0.028,
+            "i": 7.576061,
+            "sigma": 0.189402,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 10,
+            "q": 0.03,
+            "i": 7.487386,
+            "sigma": 0.187185,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 11,
+            "q": 0.032,
+            "i": 7.394533,
+            "sigma": 0.184863,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 12,
+            "q": 0.034,
+            "i": 7.297888,
+            "sigma": 0.182447,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 13,
+            "q": 0.036,
+            "i": 7.197814,
+            "sigma": 0.179945,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 14,
+            "q": 0.038,
+            "i": 7.09465,
+            "sigma": 0.177366,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 15,
+            "q": 0.04,
+            "i": 6.988705,
+            "sigma": 0.174718,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 16,
+            "q": 0.042,
+            "i": 6.880257,
+            "sigma": 0.172006,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 17,
+            "q": 0.044,
+            "i": 6.769556,
+            "sigma": 0.169239,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 18,
+            "q": 0.046,
+            "i": 6.656827,
+            "sigma": 0.166421,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 19,
+            "q": 0.048,
+            "i": 6.542264,
+            "sigma": 0.163557,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 20,
+            "q": 0.05,
+            "i": 6.426046,
+            "sigma": 0.160651,
+            "masked": false,
+            "mask_sources": []
+          }
+        ],
+        "exposure": {
+          "value": 30,
+          "sigma": 0.1,
+          "unit": "s",
+          "raw_text": "30 s ± 0.1"
+        },
+        "thickness": {
+          "value": 0.15,
+          "sigma": 0.002,
+          "unit": "cm",
+          "raw_text": "0.15 cm ± 0.002"
+        },
+        "transmission": {
+          "value": 0.8,
+          "sigma": 0.005,
+          "unit": "dimensionless",
+          "raw_text": "0.8 ± 0.005"
+        },
+        "source_file": "fixtures/raw/buffer_batch_A.integrated",
+        "raw_representation": "two-column integrated output with q, I and dI columns; original text retained in import manifest"
+      },
+      {
+        "id": "buffer-b",
+        "role": "buffer",
+        "label": "buffer batch B",
+        "q_unit": "1/A",
+        "intensity_unit": "count",
+        "points": [
+          {
+            "index": 0,
+            "q": 0.01,
+            "i": 7.067182,
+            "sigma": 0.17668,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 1,
+            "q": 0.012,
+            "i": 7.05138,
+            "sigma": 0.176285,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 2,
+            "q": 0.014,
+            "i": 7.02915,
+            "sigma": 0.175729,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 3,
+            "q": 0.016,
+            "i": 7.000502,
+            "sigma": 0.175013,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 4,
+            "q": 0.018,
+            "i": 6.965492,
+            "sigma": 0.174137,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 5,
+            "q": 0.02,
+            "i": 6.924215,
+            "sigma": 0.173105,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 6,
+            "q": 0.022,
+            "i": 6.876812,
+            "sigma": 0.17192,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 7,
+            "q": 0.024,
+            "i": 6.823466,
+            "sigma": 0.170587,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 8,
+            "q": 0.026,
+            "i": 6.764399,
+            "sigma": 0.16911,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 9,
+            "q": 0.028,
+            "i": 6.699876,
+            "sigma": 0.167497,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 10,
+            "q": 0.03,
+            "i": 6.630197,
+            "sigma": 0.165755,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 11,
+            "q": 0.032,
+            "i": 6.555696,
+            "sigma": 0.163892,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 12,
+            "q": 0.034,
+            "i": 6.476735,
+            "sigma": 0.161918,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 13,
+            "q": 0.036,
+            "i": 6.393702,
+            "sigma": 0.159843,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 14,
+            "q": 0.038,
+            "i": 6.307007,
+            "sigma": 0.157675,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 15,
+            "q": 0.04,
+            "i": 6.217073,
+            "sigma": 0.155427,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 16,
+            "q": 0.042,
+            "i": 6.124331,
+            "sigma": 0.153108,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 17,
+            "q": 0.044,
+            "i": 6.029218,
+            "sigma": 0.15073,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 18,
+            "q": 0.046,
+            "i": 5.932167,
+            "sigma": 0.148304,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 19,
+            "q": 0.048,
+            "i": 5.833607,
+            "sigma": 0.14584,
+            "masked": false,
+            "mask_sources": []
+          },
+          {
+            "index": 20,
+            "q": 0.05,
+            "i": 5.733951,
+            "sigma": 0.143349,
+            "masked": false,
+            "mask_sources": []
+          }
+        ],
+        "exposure": {
+          "value": 30,
+          "sigma": 0.1,
+          "unit": "s",
+          "raw_text": "30 s ± 0.1"
+        },
+        "thickness": {
+          "value": 0.15,
+          "sigma": 0.002,
+          "unit": "cm",
+          "raw_text": "0.15 cm ± 0.002"
+        },
+        "transmission": {
+          "value": 0.77,
+          "sigma": 0.005,
+          "unit": "dimensionless",
+          "raw_text": "0.77 ± 0.005"
+        },
+        "source_file": "fixtures/raw/buffer_batch_B.integrated",
+        "raw_representation": "two-column integrated output with q, I and dI columns; original text retained in import manifest"
+      }
+    ],
+    "responses": [
+      {
+        "id": "response/pilatus-flat-field-2026-09",
+        "label": "Pilatus flat field and solid angle response",
+        "q_unit": "1/A",
+        "points": [
+          {
+            "index": 0,
+            "q": 0.01,
+            "response": 0.968,
+            "sigma": 0.004
+          },
+          {
+            "index": 1,
+            "q": 0.012,
+            "response": 0.9696,
+            "sigma": 0.004
+          },
+          {
+            "index": 2,
+            "q": 0.014,
+            "response": 0.9712,
+            "sigma": 0.004
+          },
+          {
+            "index": 3,
+            "q": 0.016,
+            "response": 0.9728,
+            "sigma": 0.004
+          },
+          {
+            "index": 4,
+            "q": 0.018,
+            "response": 0.9744,
+            "sigma": 0.004
+          },
+          {
+            "index": 5,
+            "q": 0.02,
+            "response": 0.976,
+            "sigma": 0.004
+          },
+          {
+            "index": 6,
+            "q": 0.022,
+            "response": 0.9776,
+            "sigma": 0.004
+          },
+          {
+            "index": 7,
+            "q": 0.024,
+            "response": 0.9792,
+            "sigma": 0.004
+          },
+          {
+            "index": 8,
+            "q": 0.026,
+            "response": 0.9808,
+            "sigma": 0.004
+          },
+          {
+            "index": 9,
+            "q": 0.028,
+            "response": 0.9824,
+            "sigma": 0.004
+          },
+          {
+            "index": 10,
+            "q": 0.03,
+            "response": 0.984,
+            "sigma": 0.004
+          },
+          {
+            "index": 11,
+            "q": 0.032,
+            "response": 0.9856,
+            "sigma": 0.004
+          },
+          {
+            "index": 12,
+            "q": 0.034,
+            "response": 0.9872,
+            "sigma": 0.004
+          },
+          {
+            "index": 13,
+            "q": 0.036,
+            "response": 0.9888,
+            "sigma": 0.004
+          },
+          {
+            "index": 14,
+            "q": 0.038,
+            "response": 0.9904,
+            "sigma": 0.004
+          },
+          {
+            "index": 15,
+            "q": 0.04,
+            "response": 0.992,
+            "sigma": 0.004
+          },
+          {
+            "index": 16,
+            "q": 0.042,
+            "response": 0.9936,
+            "sigma": 0.004
+          },
+          {
+            "index": 17,
+            "q": 0.044,
+            "response": 0.9952,
+            "sigma": 0.004
+          },
+          {
+            "index": 18,
+            "q": 0.046,
+            "response": 0.9968,
+            "sigma": 0.004
+          },
+          {
+            "index": 19,
+            "q": 0.048,
+            "response": 0.9984,
+            "sigma": 0.004
+          },
+          {
+            "index": 20,
+            "q": 0.05,
+            "response": 1.0,
+            "sigma": 0.004
+          }
+        ],
+        "source": "fixtures/instrument/pilatus_flat_field_2026-09.json"
+      }
+    ],
+    "masks": [
+      {
+        "id": "mask/beamstop",
+        "label": "beamstop shadow",
+        "source": "fixtures/masks/beamstop.svg",
+        "q_min": 0.0,
+        "q_max": 0.012,
+        "q_unit": "1/A"
+      },
+      {
+        "id": "mask/manual-artifact",
+        "label": "manual artifact mask",
+        "source": "reviewer://initial-import",
+        "q_min": 0.01,
+        "q_max": 0.012,
+        "q_unit": "1/A"
+      }
+    ],
+    "buffer_candidates": [
+      "buffer-a",
+      "buffer-b"
+    ],
+    "selected_buffer": "buffer-a",
+    "response_id": "response/pilatus-flat-field-2026-09",
+    "background_scale": {
+      "value": 1.0,
+      "sigma": 0.0,
+      "source": "exposure-normalized initial scale",
+      "state": "fixed"
+    },
+    "model_windows": {
+      "guinier_q_min": 0.012,
+      "guinier_q_max": 0.024,
+      "porod_q_min": 0.03,
+      "porod_q_max": 0.05,
+      "q_unit": "1/A"
+    }
+  },
+  "scenario": [
+    "1. parameter revision: sample thickness 0.150 cm -> 0.152 cm",
+    "2. local source edit: one raw sample intensity changes; only its q-local evidence is recomputed",
+    "3. q grid mismatch: buffer-a shifted by half a bin; interpolation remains inside overlap",
+    "4. no overlap: shift buffer-a beyond the sample q window",
+    "5. uncertain background scale: alpha=0.98 with sigma=0.04; error bands include scale",
+    "6. negative intensity and interval overlap: set a low-q sample point negative and overlap Guinier/Porod",
+    "7. buffer version switch and multi-candidate residual: choose buffer-b and retain buffer-a evidence",
+    "8. concurrent decision: two reviewers accept different branches from the same base, then resolve"
+  ]
+}
