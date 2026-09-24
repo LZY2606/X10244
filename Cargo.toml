@@ -1,0 +1,16 @@
+[package]
+name = "saxs-bench"
+version = "0.1.0"
+edition = "2021"
+description = "SAXS normalization, buffer subtraction and multi-region model evidence bench"
+
+[dependencies]
+axum = { version = "0.8.9", features = ["macros"] }
+tokio = { version = "1.53", features = ["full"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+
+[profile.dev]
+opt-level = 0
