@@ -1,0 +1,22 @@
+{
+ "id": "src:mask",
+ "name": "Beamstop + module-gap mask",
+ "kind": "mask",
+ "meta": null,
+ "q_unit": "1/angstrom",
+ "i_unit": "flag",
+ "raw_repr": "# masked q ranges: beamstop 0.010-0.012; module gap 0.210-0.214",
+ "points": [],
+ "mask_ranges": [
+  [
+   0.01,
+   0.012,
+   "beamstop"
+  ],
+  [
+   0.21,
+   0.214,
+   "module-gap"
+  ]
+ ]
+}

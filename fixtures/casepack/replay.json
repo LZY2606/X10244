@@ -1,0 +1,75 @@
+{
+ "narrative": "SAXS normalization + background subtraction review chain",
+ "sample": "src:sample-a",
+ "steps": [
+  {
+   "op": "import_all",
+   "note": "import raw q/I/sigma, exposure, thickness, transmission, buffer candidates, instrument response, mask"
+  },
+  {
+   "op": "build",
+   "buffers": [
+    "src:buffer-v1"
+   ],
+   "scale": 1.0,
+   "scale_sigma": 0.01,
+   "note": "initial pipeline: normalize, subtract buffer-v1, residual, guinier+porod candidates"
+  },
+  {
+   "op": "revise_params",
+   "buffers": [
+    "src:buffer-v1"
+   ],
+   "scale": 1.02,
+   "scale_sigma": 0.015,
+   "note": "parameter revision: background scale 1.00 -> 1.02 with larger scale uncertainty"
+  },
+  {
+   "op": "source_change",
+   "buffers": [
+    "src:buffer-v2"
+   ],
+   "scale": 1.02,
+   "scale_sigma": 0.015,
+   "note": "buffer version switch v1->v2: shifted q grid triggers interpolation-overlap rule; normalization must stay valid"
+  },
+  {
+   "op": "attempt_buffer",
+   "buffers": [
+    "src:buffer-v4"
+   ],
+   "scale": 1.0,
+   "scale_sigma": 0.01,
+   "note": "no-overlap buffer: subtraction must be refused with diagnostic"
+  },
+  {
+   "op": "multi_candidate",
+   "buffers": [
+    "src:buffer-v1",
+    "src:buffer-v2",
+    "src:buffer-v3"
+   ],
+   "scale": 1.0,
+   "scale_sigma": 0.01,
+   "note": "three buffer candidates -> three subtraction branches with residuals, all retained"
+  },
+  {
+   "op": "decision",
+   "actor": "reviewer-a",
+   "node_tag": "guinier",
+   "candidate_index": 0,
+   "accept": true,
+   "note": "reviewer A accepts lowest-q guinier window"
+  },
+  {
+   "op": "decision",
+   "actor": "reviewer-b",
+   "node_tag": "guinier",
+   "candidate_index": 2,
+   "accept": true,
+   "expect_conflict": true,
+   "resolve": "reviewer-a",
+   "note": "reviewer B concurrently accepts a different window from the same base version -> resolvable conflict"
+  }
+ ]
+}
