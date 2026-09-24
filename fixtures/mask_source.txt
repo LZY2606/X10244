@@ -1,0 +1,6 @@
+# mask provenance for SAXS-BENCH-1 run
+# beamstop_guard: q < 0.09 nm^-1 masked (beamstop shadow)
+# detector_dead: module 3 pixel rows [812:829] masked
+# cosmic: 17 pixels removed by 5-sigma neighbour test
+# source: 2D mask file mask_run01.edf sha256=9f2c1a (retained, not applied retroactively)
+coord_basis = detector_pixels -> radial q

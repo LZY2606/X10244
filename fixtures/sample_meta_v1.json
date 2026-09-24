@@ -1,0 +1,9 @@
+{
+  "sample_name": "lysozyme 5 mg/ml",
+  "exposure_s": 1.0,
+  "thickness_mm": 1.5,
+  "transmission": 0.42,
+  "transmission_unc": 0.010,
+  "q_unit": "nm^-1",
+  "i_unit": "cm^-1"
+}
