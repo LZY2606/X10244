@@ -1,0 +1,54 @@
+{
+  "case_id": "saxs-lysozyme-2026-09",
+  "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "materials": {
+    "sample": {
+      "file": "sample_lysozyme_v1.dat",
+      "label": "lysozyme 4 mg/mL",
+      "transmission_override": null
+    },
+    "buffers": [
+      {
+        "id": "buffer-v1",
+        "file": "buffer_v1.dat",
+        "label": "缓冲液批次 A（记录于测量当日）"
+      },
+      {
+        "id": "buffer-v2",
+        "file": "buffer_v2.dat",
+        "label": "缓冲液批次 A 复核版（平背景修订）"
+      },
+      {
+        "id": "buffer-shifted",
+        "file": "buffer_shifted_grid.dat",
+        "label": "不同 q 网格的缓冲积分"
+      },
+      {
+        "id": "buffer-no-overlap",
+        "file": "buffer_no_overlap.dat",
+        "label": "无重叠 q 区间的缓冲积分"
+      }
+    ]
+  },
+  "instrument_response": {
+    "id": "resp-v1",
+    "file": "instrument_response_v1.dat"
+  },
+  "masks": [
+    {
+      "id": "mask-v1",
+      "file": "mask_v1.dat"
+    },
+    {
+      "id": "mask-v2",
+      "file": "mask_v2.dat"
+    }
+  ],
+  "norm_rel_sigma": 0.02,
+  "scale_uncertainty_threshold": 0.15,
+  "unconvertible_examples": {
+    "transmission_raw": "n/a",
+    "transmission_unit": "t",
+    "note": "导入演练时把样品透射率替换为该值：不可转换，留在原位置并附诊断，不画图丢弃"
+  }
+}
