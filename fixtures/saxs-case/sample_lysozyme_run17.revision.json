@@ -1,0 +1,14 @@
+{
+  "revision_of_source": "sample_lysozyme_run17.txt",
+  "name": "lysozyme-run17",
+  "thickness": {
+    "value": 0.98,
+    "unit": "mm"
+  },
+  "transmission": {
+    "value": 0.83,
+    "unit": "-",
+    "sigma": 0.008
+  },
+  "note": "capillary remeasured after beamtime; only metadata changes"
+}

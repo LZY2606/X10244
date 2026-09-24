@@ -1,0 +1,30 @@
+{
+  "role": "sample",
+  "name": "lysozyme-negative-run",
+  "source_file": "sample_negative_intensity.txt",
+  "exposure": {
+    "value": 6.0,
+    "unit": "s"
+  },
+  "transmission": {
+    "value": 0.82,
+    "unit": "-",
+    "sigma": 0.01
+  },
+  "thickness": {
+    "value": 1.0,
+    "unit": "mm"
+  },
+  "instrument": {
+    "name": "SAXS-beamline-A",
+    "spec": {
+      "wavelength_A": 1.033
+    }
+  },
+  "mask": {
+    "name": "beamstop-run17",
+    "origin": "integration-pipeline mask.fit",
+    "locator": "masks/beamstop-run17.fit",
+    "checksum": "sha256:run17-mask"
+  }
+}

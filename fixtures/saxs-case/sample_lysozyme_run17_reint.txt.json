@@ -1,0 +1,34 @@
+{
+  "role": "sample",
+  "name": "lysozyme-run17",
+  "source_file": "sample_lysozyme_run17_reint.txt",
+  "exposure": {
+    "value": 6.0,
+    "unit": "s"
+  },
+  "transmission": {
+    "value": 0.83,
+    "unit": "-",
+    "sigma": 0.008
+  },
+  "thickness": {
+    "value": 0.98,
+    "unit": "mm"
+  },
+  "instrument": {
+    "name": "SAXS-beamline-A",
+    "spec": {
+      "wavelength_A": 1.033
+    }
+  },
+  "mask": {
+    "name": "beamstop-run17-mask2",
+    "origin": "re-integration mask v2",
+    "locator": "masks/beamstop-run17-v2.fit",
+    "checksum": "sha256:run17-mask-v2"
+  },
+  "local_change": {
+    "points_41_60": "re-integrated with mask v2",
+    "points_1_40": "identical"
+  }
+}

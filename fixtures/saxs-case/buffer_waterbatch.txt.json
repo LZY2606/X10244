@@ -1,0 +1,26 @@
+{
+  "role": "buffer",
+  "name": "water-batch",
+  "source_file": "buffer_waterbatch.txt",
+  "exposure": {
+    "value": 6.0,
+    "unit": "s"
+  },
+  "transmission": {
+    "value": 0.7,
+    "unit": "-",
+    "sigma": 0.015
+  },
+  "instrument": {
+    "name": "SAXS-beamline-A",
+    "spec": {
+      "wavelength_A": 1.033
+    }
+  },
+  "mask": {
+    "name": "beamstop-run17",
+    "origin": "integration-pipeline mask.fit",
+    "locator": "masks/beamstop-run17.fit",
+    "checksum": "sha256:run17-mask"
+  }
+}

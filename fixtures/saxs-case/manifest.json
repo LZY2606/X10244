@@ -1,0 +1,24 @@
+{
+  "case": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "coordinate_basis": "q in A^-1 raw / nm^-1 canonical; I in a.u.; t in s; d in mm/cm",
+  "materials": [
+    "sample_lysozyme_run17.txt",
+    "buffer_acetate_v1.txt",
+    "buffer_acetate_v2.txt",
+    "buffer_waterbatch.txt",
+    "buffer_shifted_grid.txt",
+    "buffer_highq_only.txt",
+    "sample_negative_intensity.txt",
+    "sample_lysozyme_run17_reint.txt",
+    "sample_lysozyme_run17.revision.json"
+  ],
+  "boundary_situations": [
+    "q-grid-misaligned",
+    "no-overlap",
+    "background-scale-uncertainty",
+    "negative-intensity",
+    "interval-overlap",
+    "buffer-version-switch",
+    "multi-candidate-residual"
+  ]
+}

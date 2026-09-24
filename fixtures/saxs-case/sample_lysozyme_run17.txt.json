@@ -1,0 +1,34 @@
+{
+  "role": "sample",
+  "name": "lysozyme-run17",
+  "source_file": "sample_lysozyme_run17.txt",
+  "exposure": {
+    "value": 6.0,
+    "unit": "s"
+  },
+  "transmission": {
+    "value": 0.82,
+    "unit": "-",
+    "sigma": 0.01
+  },
+  "thickness": {
+    "value": 1.0,
+    "unit": "mm"
+  },
+  "instrument": {
+    "name": "SAXS-beamline-A",
+    "spec": {
+      "wavelength_A": 1.033,
+      "detector": "EIGER4M",
+      "geometry": "transmission",
+      "coordinate_basis": "q[A^-1]=4*pi/lambda*sin(theta)",
+      "response": "per-pixel flat-field + solid-angle applied during integration"
+    }
+  },
+  "mask": {
+    "name": "beamstop-run17",
+    "origin": "integration-pipeline mask.fit",
+    "locator": "masks/beamstop-run17.fit",
+    "checksum": "sha256:run17-mask"
+  }
+}
