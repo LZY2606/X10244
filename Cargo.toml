@@ -1,0 +1,20 @@
+[package]
+name = "saxs-provenance"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7"
+rusqlite = { version = "0.40", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tower-http = { version = "0.6", features = ["fs", "trace"] }
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+
+[[bin]]
+name = "saxs-provenance"
+path = "src/main.rs"
