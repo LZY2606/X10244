@@ -1,0 +1,13 @@
+{
+  "id": "instrument_response_v3",
+  "detector": "Pilatus3 2M",
+  "wavelength_nm": 0.154,
+  "sample_detector_distance_mm": 2140.0,
+  "response_note": "per-module flat-field coefficients retained; not applied at import (raw preserved)",
+  "module_efficiency": [
+    0.998,
+    1.002,
+    0.997,
+    1.001
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "mask_v2",
+  "source": "beamstop shadow + dead module row, drawn by beamline staff 2026-09-12",
+  "rects_px": [
+    [
+      0,
+      0,
+      8,
+      1475
+    ],
+    [
+      512,
+      0,
+      520,
+      1475
+    ],
+    [
+      1010,
+      600,
+      1030,
+      900
+    ]
+  ],
+  "note": "masked pixels excluded before azimuthal integration; mask provenance retained"
+}

@@ -1,0 +1,63 @@
+{
+  "case": "SAXS normalization / background subtraction / multi-interval model evidence",
+  "q_unit": "nm^-1",
+  "i_unit": "a.u. (detector counts, raw)",
+  "sample": {
+    "id": "sample_a1",
+    "curve": "sample_a1.csv",
+    "exposure_s": 10.0,
+    "exposure_rel_unc": 0.005,
+    "thickness_mm": 1.5,
+    "thickness_rel_unc": 0.01,
+    "transmission": 0.32,
+    "transmission_rel_unc": 0.02,
+    "instrument_response": "instrument_response.json",
+    "mask": "mask.json",
+    "buffer_candidates": [
+      "buffer_b1",
+      "buffer_b2",
+      "buffer_far"
+    ]
+  },
+  "buffers": [
+    {
+      "id": "buffer_b1",
+      "curve": "buffer_b1.csv",
+      "exposure_s": 10.0,
+      "exposure_rel_unc": 0.005,
+      "thickness_mm": 1.5,
+      "thickness_rel_unc": 0.01,
+      "transmission": 0.34,
+      "transmission_rel_unc": 0.02,
+      "instrument_response": "instrument_response.json",
+      "mask": "mask.json",
+      "note": "buffer before sample, same capillary"
+    },
+    {
+      "id": "buffer_b2",
+      "curve": "buffer_b2.csv",
+      "exposure_s": 10.0,
+      "exposure_rel_unc": 0.005,
+      "thickness_mm": 1.5,
+      "thickness_rel_unc": 0.01,
+      "transmission": 0.34,
+      "transmission_rel_unc": 0.02,
+      "instrument_response": "instrument_response.json",
+      "mask": "mask.json",
+      "note": "buffer re-measured after beam refill (version switch)"
+    },
+    {
+      "id": "buffer_far",
+      "curve": "buffer_no_overlap.csv",
+      "exposure_s": 5.0,
+      "exposure_rel_unc": 0.005,
+      "thickness_mm": 1.5,
+      "thickness_rel_unc": 0.01,
+      "transmission": 0.34,
+      "transmission_rel_unc": 0.02,
+      "instrument_response": "instrument_response.json",
+      "mask": "mask.json",
+      "note": "wrong-q-range buffer from another run; must trigger no-overlap"
+    }
+  ]
+}

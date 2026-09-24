@@ -1,0 +1,84 @@
+{
+  "title": "boundary-combination replay: grid mismatch / no-overlap / scale uncertainty / negative intensity / interval overlap / buffer version switch / multi-candidate residuals",
+  "steps": [
+    {
+      "op": "import"
+    },
+    {
+      "op": "normalize"
+    },
+    {
+      "op": "subtract",
+      "id": "sub:b1",
+      "buffer": "buffer_b1",
+      "scale": 1.0,
+      "scale_unc": 0.02
+    },
+    {
+      "op": "fit",
+      "id": "fit:guinier:1",
+      "kind": "guinier",
+      "on": "sub:b1",
+      "range": [
+        0.1,
+        0.45
+      ]
+    },
+    {
+      "op": "fit",
+      "id": "fit:porod:1",
+      "kind": "porod",
+      "on": "sub:b1",
+      "range": [
+        0.4,
+        0.9
+      ]
+    },
+    {
+      "op": "fit",
+      "id": "fit:guinier:2",
+      "kind": "guinier",
+      "on": "sub:b1",
+      "range": [
+        0.12,
+        0.5
+      ]
+    },
+    {
+      "op": "revise_params",
+      "target": "sub:b1",
+      "scale": 1.05,
+      "scale_unc": 0.03,
+      "reason": "capillary scattering underestimated; analyst revision"
+    },
+    {
+      "op": "switch_buffer",
+      "target": "sub:b1",
+      "buffer": "buffer_b2",
+      "reason": "beam refill invalidated b1"
+    },
+    {
+      "op": "subtract",
+      "id": "sub:no_overlap",
+      "buffer": "buffer_far",
+      "scale": 1.0,
+      "scale_unc": 0.02
+    },
+    {
+      "op": "decide",
+      "candidate": "fit:guinier:1",
+      "choice": "accept",
+      "rationale": "lowest weighted residual in valid Guinier range"
+    },
+    {
+      "op": "decide",
+      "candidate": "fit:guinier:2",
+      "choice": "reject",
+      "rationale": "range extends past q*Rg=1.3, residuals worse"
+    },
+    {
+      "op": "conflict_demo",
+      "candidate": "fit:porod:1"
+    }
+  ]
+}
