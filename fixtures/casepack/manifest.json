@@ -1,0 +1,55 @@
+{
+  "pack": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "version": 1,
+  "files": [
+    "sample_sa1.csv",
+    "buffer_b1.csv",
+    "buffer_b1_v2.csv",
+    "buffer_b2_offset.csv",
+    "buffer_b3_far.csv",
+    "buffer_b4_channels.csv",
+    "meta.json",
+    "instrument_response.json"
+  ],
+  "edge_cases": [
+    "q-grid-misalignment",
+    "no-overlap-region",
+    "background-scale-uncertainty",
+    "negative-intensity",
+    "interval-overlap",
+    "buffer-version-switch",
+    "multi-candidate-residual"
+  ],
+  "guinier_windows_nm": [
+    [
+      0.1,
+      0.35
+    ],
+    [
+      0.15,
+      0.45
+    ],
+    [
+      0.2,
+      0.55
+    ]
+  ],
+  "porod_windows_nm": [
+    [
+      2.5,
+      4.0
+    ],
+    [
+      3.0,
+      5.0
+    ]
+  ],
+  "scale_hypotheses": [
+    0.98,
+    1.0,
+    1.02
+  ],
+  "nominal_scale": 1.0,
+  "nominal_scale_err": 0.02,
+  "wide_scale_err": 0.1
+}

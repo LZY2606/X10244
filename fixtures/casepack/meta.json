@@ -1,0 +1,52 @@
+{
+  "experiment": "lysozyme 5 mg/mL in 40 mM NaAc pH 4.5, flow cell",
+  "exposure_s": 2.0,
+  "thickness_mm": 1.5,
+  "transmission": 0.32,
+  "transmission_err": 0.01,
+  "instrument_response": {
+    "id": "instr:bl-test-2026-09",
+    "description": "beamline BL-TEST, pilatus 2M, SDD 2.4 m, lambda 1.0 A",
+    "response_file": "instrument_response.json"
+  },
+  "mask_source": {
+    "id": "mask:pyfai-20260919-01",
+    "generator": "pyfai-draw",
+    "params": {
+      "beamstop": "polygon-12pt",
+      "bad_pixels": "auto-3sigma"
+    }
+  },
+  "buffer_candidates": [
+    {
+      "id": "buffer_b1",
+      "version": 1,
+      "file": "buffer_b1.csv",
+      "note": "matched buffer, dialysis equilibrated"
+    },
+    {
+      "id": "buffer_b1",
+      "version": 2,
+      "file": "buffer_b1_v2.csv",
+      "note": "re-measured after 4 h, slight evaporation"
+    },
+    {
+      "id": "buffer_b2_offset",
+      "version": 1,
+      "file": "buffer_b2_offset.csv",
+      "note": "exported with shifted q grid"
+    },
+    {
+      "id": "buffer_b3_far",
+      "version": 1,
+      "file": "buffer_b3_far.csv",
+      "note": "wrong q range export"
+    },
+    {
+      "id": "buffer_b4_channels",
+      "version": 1,
+      "file": "buffer_b4_channels.csv",
+      "note": "q axis in detector channels, calibration missing"
+    }
+  ]
+}
