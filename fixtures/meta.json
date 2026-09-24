@@ -1,0 +1,44 @@
+{
+  "sample": {
+    "exposure": {
+      "value": 2.0,
+      "unit": "s"
+    },
+    "thickness": {
+      "value": 1.5,
+      "unit": "mm"
+    },
+    "transmission": {
+      "value": 0.42,
+      "unit": "1"
+    },
+    "exposure_rel_unc": 0.005,
+    "thickness_rel_unc": 0.02,
+    "transmission_rel_unc": 0.01
+  },
+  "buffer": {
+    "exposure": {
+      "value": 2.0,
+      "unit": "s"
+    },
+    "thickness": {
+      "value": 1.5,
+      "unit": "mm"
+    },
+    "transmission": {
+      "value": 0.45,
+      "unit": "1"
+    },
+    "exposure_rel_unc": 0.005,
+    "thickness_rel_unc": 0.02,
+    "transmission_rel_unc": 0.01
+  },
+  "legacy_thickness": {
+    "value": 0.15,
+    "unit": "cm"
+  },
+  "capillary_mark": {
+    "value": 3.0,
+    "unit": "marks"
+  }
+}
