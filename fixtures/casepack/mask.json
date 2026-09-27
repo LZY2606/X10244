@@ -1,0 +1,10 @@
+{
+ "record_id": "mask-v3",
+ "kind": "mask",
+ "source": "mask_v3.json exported from pyFAI-drawmask, 2026-09-11",
+ "masked_modules": [
+  "pilatus-2m row 512-515 (beamstop shadow)",
+  "panel gap columns"
+ ],
+ "notes": "beamstop + panel gaps; applied before 2D integration upstream"
+}
