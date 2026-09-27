@@ -1,0 +1,26 @@
+[package]
+name = "scatter-bench"
+version = "0.1.0"
+edition = "2021"
+description = "SAXS normalization, buffer subtraction and multi-region model evidence chain"
+
+[lib]
+name = "scatter_bench"
+path = "src/lib.rs"
+
+[[bin]]
+name = "scatter-bench"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+rusqlite = { version = "0.31", features = ["bundled", "blob"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+tower = "0.5"
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+tempfile = "3"
