@@ -1,0 +1,22 @@
+{
+  "record_id": "IR-RUN12",
+  "kind": "instrument_response",
+  "beamline": "BL19U2",
+  "wavelength_nm": 0.1,
+  "detector_distance_m": 2.4,
+  "dark_current_cps": 0.002,
+  "efficiency": [
+    {
+      "q_min": 0.0,
+      "q_max": 2.0,
+      "eta": 0.98
+    },
+    {
+      "q_min": 2.0,
+      "q_max": 5.5,
+      "eta": 0.95
+    }
+  ],
+  "absolute_scale_factor": 1.0,
+  "scale_uncertainty_rel": 0.03
+}

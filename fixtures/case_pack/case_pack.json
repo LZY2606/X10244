@@ -1,0 +1,48 @@
+{
+  "case_id": "SAXS-NORM-BGSUB-EVIDENCE-001",
+  "title": "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据",
+  "narrative": "小角散射小组导入二维积分后的 I(q)、透射率、曝光和缓冲液记录，生成可审阅的归一化与背景扣除链",
+  "files": {
+    "sample": "sample_lys_a1.dat",
+    "buffers": [
+      "buffer_b1.dat",
+      "buffer_b2_misaligned.dat",
+      "buffer_b3_nooverlap.dat",
+      "buffer_b4_hot.dat"
+    ],
+    "instrument_response": "instrument_response_run12.json",
+    "mask": "mask_run12.json"
+  },
+  "guinier_intervals": [
+    [
+      0.08,
+      0.3
+    ],
+    [
+      0.1,
+      0.36
+    ],
+    [
+      0.12,
+      0.42
+    ]
+  ],
+  "porod_intervals": [
+    [
+      2.2,
+      3.4
+    ],
+    [
+      3.0,
+      4.4
+    ]
+  ],
+  "background_scale": {
+    "value": 1.0,
+    "uncertainty": 0.02
+  },
+  "alt_background_scale": {
+    "value": 0.96,
+    "uncertainty": 0.05
+  }
+}
