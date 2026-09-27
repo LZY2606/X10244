@@ -1,0 +1,10 @@
+{
+ "id": "inst-2026-09",
+ "detector": "PILATUS3 1M",
+ "distance_mm": 1502.0,
+ "wavelength_A": 1.0,
+ "response_note": "flat-field corrected 2026-09-01",
+ "files": [
+  "flatfield_20260901.tif"
+ ]
+}
