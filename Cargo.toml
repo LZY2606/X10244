@@ -1,0 +1,36 @@
+[package]
+name = "saxs-bench"
+version = "1.0.0"
+edition = "2021"
+description = "SAXS normalization, buffer subtraction and multi-region model evidence bench"
+
+[lib]
+name = "saxs_bench"
+path = "src/lib.rs"
+
+[[bin]]
+name = "saxs-bench"
+path = "src/main.rs"
+required-features = ["server"]
+
+[[bin]]
+name = "gen-case"
+path = "src/bin/gen_case.rs"
+
+[features]
+default = ["server"]
+server = ["dep:axum", "dep:tokio", "dep:tower-http", "dep:rust-embed"]
+
+[dependencies]
+rusqlite = { version = "0.31", features = ["bundled", "blob"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+rand = "0.8"
+axum = { version = "0.8", optional = true }
+tokio = { version = "1", features = ["full"], optional = true }
+tower-http = { version = "0.6", features = ["fs"], optional = true }
+rust-embed = { version = "8", optional = true }
+
+[dev-dependencies]
+tempfile = "3"
