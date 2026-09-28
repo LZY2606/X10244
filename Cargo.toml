@@ -1,0 +1,25 @@
+[package]
+name = "saxs-station"
+version = "0.1.0"
+edition = "2021"
+description = "散射曲线台：SAXS 归一化、背景扣除与多区间模型证据"
+
+[lib]
+name = "saxs_station"
+path = "src/lib.rs"
+
+[[bin]]
+name = "saxs-station"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
+uuid = { version = "1", features = ["v4"] }
+clap = { version = "4", features = ["derive"] }
+
+[dev-dependencies]
+tempfile = "3"
