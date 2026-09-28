@@ -1,0 +1,27 @@
+[package]
+name = "saxs-studio"
+version = "0.1.0"
+edition = "2021"
+description = "SAXS normalization, buffer subtraction and multi-region model evidence workbench"
+
+[lib]
+name = "saxs_studio"
+path = "src/lib.rs"
+
+[[bin]]
+name = "saxs-studio"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["full"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["fs"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+tempfile = "3"
