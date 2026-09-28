@@ -1,0 +1,25 @@
+[package]
+name = "saxs_station"
+version = "0.1.0"
+edition = "2021"
+description = "SAXS normalization, buffer subtraction and multi-region model evidence station"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
+rust-embed = "8"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.test]
+opt-level = 1
+
+[[bin]]
+name = "saxs_station"
+path = "src/main.rs"
