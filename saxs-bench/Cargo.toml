@@ -1,0 +1,26 @@
+[package]
+name = "saxs-bench"
+version = "0.1.0"
+edition = "2021"
+description = "SAXS normalization, background subtraction and multi-region model evidence workbench"
+
+[lib]
+name = "saxs_bench"
+path = "src/lib.rs"
+
+[[bin]]
+name = "saxs-bench"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+anyhow = "1"
+thiserror = "1"
+
+[dev-dependencies]
+tempfile = "3"
